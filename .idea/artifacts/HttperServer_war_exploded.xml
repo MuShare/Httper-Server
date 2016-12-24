@@ -9,6 +9,9 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.2" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.4.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.4.0" />
           <element id="library" level="project" name="Hibernate 5.2.3-5.2.3" />
           <element id="library" level="project" name="Spring-4.3.4.RELEASE" />
           <element id="library" level="project" name="Spring MVC-4.3.4.RELEASE" />
