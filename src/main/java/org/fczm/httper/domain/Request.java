@@ -3,10 +3,11 @@ package org.fczm.httper.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "request")
-public class Request {
+public class Request implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -33,6 +34,10 @@ public class Request {
 
     @Column(columnDefinition = "TEXT")
     private String body;
+
+    @ManyToOne
+    @JoinColumn(name = "uid")
+    private User user;
 
     public String getRid() {
         return rid;
@@ -96,5 +101,13 @@ public class Request {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
