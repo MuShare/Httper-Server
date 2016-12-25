@@ -22,6 +22,8 @@
       <root url="jar://$PROJECT_DIR$/lib/spring-test-4.3.4.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/spring-orm-4.3.4.RELEASE-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
