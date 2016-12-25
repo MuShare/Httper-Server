@@ -1,4 +1,4 @@
-package org.fczm.common.support;
+package org.fczm.common.hibernate.support;
 
 import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;

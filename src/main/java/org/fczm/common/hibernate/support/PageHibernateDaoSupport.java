@@ -1,4 +1,4 @@
-package org.fczm.common.support;
+package org.fczm.common.hibernate.support;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;

@@ -16,6 +16,10 @@ public class ResponseTool {
         return generateResponseEntity(null, HttpStatus.BAD_REQUEST, errorCode, errorMessage);
     }
 
+    public static ResponseEntity generateBadRequest(ErrorCode errorCode) {
+        return generateBadRequest(errorCode.code, errorCode.message);
+    }
+
     public static ResponseEntity generateResponseEntity(Map<String, Object> result, HttpStatus status, Integer errCode, String errMsg) {
         Map<String, Object> data = new HashMap<String, Object>();
         if (result != null) {
