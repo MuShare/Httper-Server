@@ -8,6 +8,7 @@
     <context:component-scan base-package="org.fczm.httper"/>
 
     <mvc:annotation-driven/>
+
     <mvc:default-servlet-handler/>
 
 </beans>
