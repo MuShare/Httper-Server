@@ -5,8 +5,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.HibernateCallback;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,13 +30,13 @@ public abstract class PageHibernateDaoSupport<T extends Serializable> extends Hi
 
     public String save(T entity) {
         String id = (String)getHibernateTemplate().save(entity);
-//        getHibernateTemplate().flush();
+        getHibernateTemplate().flush();
         return id;
     }
 
     public void update(T entity) {
         getHibernateTemplate().update(entity);
-//        getHibernateTemplate().flush();
+        getHibernateTemplate().flush();
     }
 
     public void delete(T entity) {

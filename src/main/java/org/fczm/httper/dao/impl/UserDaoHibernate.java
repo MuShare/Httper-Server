@@ -13,5 +13,4 @@ public class UserDaoHibernate extends PageHibernateDaoSupport<User> implements U
         setClass(User.class);
     }
 
-
 }
