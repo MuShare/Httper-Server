@@ -1,9 +1,11 @@
 package org.fczm.httper.controller.util;
 
 public enum ErrorCode {
-    ErrorMasterKey(901, "Master key is wrong."),
+    ErrorToken(901, "Token is wrong."),
 
-    ErrorEmailExsit(1011, "This email has been registered.");
+    ErrorEmailExist(1011, "This email has been registered."),
+    ErrorEmailNotExist(1021, "This email is not exsit."),
+    ErrorPasswordWrong(1022, "Password is wrong.");
 
     public int code;
     public String message;

@@ -14,6 +14,13 @@ public interface UserManager {
      */
     String addUser(String name, String type, String identifier, String credential);
 
+    /**
+     * Get user by identifier
+     * @param identifier
+     * @param type
+     * @return
+     */
     UserBean getByIdentifierWithType(String identifier, String type);
+
 }
 

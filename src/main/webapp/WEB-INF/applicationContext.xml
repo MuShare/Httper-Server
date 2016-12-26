@@ -39,15 +39,6 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="*"/>
-        </tx:attributes>
-    </tx:advice>
-    <aop:config>
-        <aop:pointcut id="myPointCut" expression="execution (* org.fczm.httper.service.impl.*.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="myPointCut"/>
-    </aop:config>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
