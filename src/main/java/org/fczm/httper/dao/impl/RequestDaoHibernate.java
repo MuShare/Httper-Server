@@ -5,7 +5,7 @@ import org.fczm.httper.dao.RequestDao;
 import org.fczm.httper.domain.Request;
 import org.springframework.stereotype.Repository;
 
-@Repository("requestDao")
+@Repository
 public class RequestDaoHibernate extends PageHibernateDaoSupport<Request> implements RequestDao {
 
     public RequestDaoHibernate() {

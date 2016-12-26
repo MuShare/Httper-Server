@@ -29,4 +29,12 @@ public class UserController {
             put("uid", uid);
         }});
     }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public ResponseEntity login(@RequestParam String email, @RequestParam String password) {
+
+        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+
+        }});
+    }
 }
