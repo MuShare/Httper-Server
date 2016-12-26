@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "request")
+@Table(name = "httper_request")
 public class Request implements Serializable {
 
     @Id

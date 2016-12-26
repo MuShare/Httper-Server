@@ -25,4 +25,5 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         }
         return new UserBean(user);
     }
+
 }

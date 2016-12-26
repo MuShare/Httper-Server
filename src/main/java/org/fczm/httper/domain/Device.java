@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "device")
+@Table(name = "httper_device")
 public class Device implements Serializable {
 
     @Id
@@ -20,7 +20,7 @@ public class Device implements Serializable {
     @Column(nullable = false)
     private String loginToken;
 
-    @Column(nullable = false)
+    @Column
     private String deviceToken;
 
     @Column(nullable = false)

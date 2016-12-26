@@ -9,6 +9,7 @@ public class UserBean {
     private String avatar;
     private String type;
     private String identifier;
+    private String credential;
 
     public String getUid() {
         return uid;
@@ -50,11 +51,20 @@ public class UserBean {
         this.identifier = identifier;
     }
 
+    public String getCredential() {
+        return credential;
+    }
+
+    public void setCredential(String credential) {
+        this.credential = credential;
+    }
+
     public UserBean(User user) {
         this.uid = user.getUid();
         this.name = user.getName();
         this.avatar = user.getAvatar();
         this.type = user.getType();
         this.identifier = user.getIdentifier();
+        this.credential = user.getCredential();
     }
 }

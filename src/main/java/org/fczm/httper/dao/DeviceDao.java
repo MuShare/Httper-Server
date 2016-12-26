@@ -5,4 +5,11 @@ import org.fczm.httper.domain.Device;
 
 public interface DeviceDao extends CrudDao<Device> {
 
+    /**
+     * Get a device by identifier.
+     * @param identifier
+     * @return
+     */
+    Device getByIdentifier(String identifier);
+
 }
