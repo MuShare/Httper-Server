@@ -15,7 +15,6 @@ public class InternetController {
 
     @RequestMapping(value = "/ip", method = RequestMethod.GET)
     public ResponseEntity getRemoteDeviceIpAddress(HttpServletRequest request) {
-        final String localIp = request.getLocalAddr();
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
@@ -29,7 +28,6 @@ public class InternetController {
         final String remoteIp = ip;
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("remote", remoteIp);
-            put("local", localIp);
         }});
     }
 
