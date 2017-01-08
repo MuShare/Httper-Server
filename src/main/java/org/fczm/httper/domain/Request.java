@@ -21,7 +21,7 @@ public class Request implements Serializable {
     private String method;
 
     @Column(nullable = false)
-    private long updateAt;
+    private Long updateAt;
 
     @Column(columnDefinition = "TEXT")
     private String headers;
