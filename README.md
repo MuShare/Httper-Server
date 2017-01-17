@@ -31,4 +31,4 @@ This is the REST API document of Httper Web service.
       - token(String): login token
    - error:
       - ErrorEmailNotExist(1021): This email is not exsit.
-      - ErrorPasswordWrong(1022): Password is wrong.
+      - ErrorPasswordWrong(1022): Password is wrong.

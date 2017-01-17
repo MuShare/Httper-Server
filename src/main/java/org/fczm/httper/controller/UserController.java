@@ -40,7 +40,7 @@ public class UserController {
     public ResponseEntity login(@RequestParam String email, @RequestParam String password,
                                 @RequestParam String deviceIdentifier, String deviceToken, String os, String lan,
                                 HttpServletRequest request) {
-        UserBean user = userManager.getByIdentifierWithType(email, "email");
+        final UserBean user = userManager.getByIdentifierWithType(email, "email");
         if (user == null) {
             return ResponseTool.generateBadRequest(ErrorCode.ErrorEmailNotExist);
         }
@@ -62,6 +62,7 @@ public class UserController {
         final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, ip, user.getUid());
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("token", token);
+            put("name", user.getName());
         }});
     }
 }
