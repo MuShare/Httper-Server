@@ -23,7 +23,6 @@ This is the REST API document of Httper Web service.
    - param: 
       - email(String): email address
       - password(String): user password
-      - password(String): user password
       - deviceIdentifier(String): UUID of a device
       - deviceToken(String, Optional): device token from APNs server
       - os(String, Optional): name and version of operating system 
