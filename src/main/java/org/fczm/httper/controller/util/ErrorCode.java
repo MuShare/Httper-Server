@@ -5,7 +5,9 @@ public enum ErrorCode {
 
     ErrorEmailExist(1011, "This email has been registered."),
     ErrorEmailNotExist(1021, "This email is not exsit."),
-    ErrorPasswordWrong(1022, "Password is wrong.");
+    ErrorPasswordWrong(1022, "Password is wrong."),
+
+    ErrorAddRequest(2011, "Add request failed because of an internel error.");
 
     public int code;
     public String message;

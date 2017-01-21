@@ -22,5 +22,12 @@ public interface UserManager {
      */
     UserBean getByIdentifierWithType(String identifier, String type);
 
+    /**
+     * User authentication by login token
+     * @param token
+     * @return
+     */
+    UserBean authByToken(String token);
+
 }
 
