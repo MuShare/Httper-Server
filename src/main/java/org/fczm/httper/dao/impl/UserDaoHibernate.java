@@ -23,4 +23,14 @@ public class UserDaoHibernate extends PageHibernateDaoSupport<User> implements U
         }
         return users.get(0);
     }
+
+    public User getByToken(String token) {
+        String hql = "from User where token =?";
+        List<User> users = (List<User>)getHibernateTemplate().find(token);
+        if (users.size() == 0) {
+            return null;
+        }
+        return users.get(0);
+    }
+
 }

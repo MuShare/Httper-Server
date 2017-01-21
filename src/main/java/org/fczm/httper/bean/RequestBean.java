@@ -1,49 +1,20 @@
-package org.fczm.httper.domain;
+package org.fczm.httper.bean;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.fczm.httper.domain.Request;
 
-import javax.persistence.*;
-import java.io.Serializable;
+public class RequestBean {
 
-@Entity
-@Table(name = "httper_request")
-public class Request implements Serializable {
-
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
     private String rid;
-
-    @Column
     private String url;
-
-    @Column
     private String method;
-
-    @Column
-    private Long updateAt;
-
-    @Column(columnDefinition = "TEXT")
+    private long updateAt;
     private String headers;
-
-    @Column(columnDefinition = "TEXT")
     private String parameters;
-
-    @Column
     private String bodyType;
-
-    @Column(columnDefinition = "TEXT")
     private String body;
-
-    @Column
-    private Boolean deleted;
-
-    @Column
-    private Integer revision;
-
-    @ManyToOne
-    @JoinColumn(name = "uid")
-    private User user;
+    private boolean deleted;
+    private int revision;
+    private String uid;
 
     public String getRid() {
         return rid;
@@ -109,32 +80,41 @@ public class Request implements Serializable {
         this.body = body;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setUpdateAt(Long updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    public Boolean getDeleted() {
+    public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 
-    public Integer getRevision() {
+    public int getRevision() {
         return revision;
     }
 
-    public void setRevision(Integer revision) {
+    public void setRevision(int revision) {
         this.revision = revision;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public RequestBean(Request request) {
+        this.rid = request.getRid();
+        this.url = request.getUrl();
+        this.method = request.getMethod();
+        this.updateAt = request.getUpdateAt();
+        this.headers = request.getHeaders();
+        this.parameters = request.getParameters();
+        this.bodyType = request.getBodyType();
+        this.body = request.getBody();
+        this.deleted = request.getDeleted();
+        this.revision = request.getRevision();
+        this.uid = request.getUser().getUid();
+    }
 }

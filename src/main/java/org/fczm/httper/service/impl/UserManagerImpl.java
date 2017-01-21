@@ -26,4 +26,12 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return new UserBean(user);
     }
 
+    public UserBean authByToken(String token) {
+        User user = userDao.getByToken(token);
+        if (user == null) {
+            return null;
+        }
+        return new UserBean(user);
+    }
+
 }
