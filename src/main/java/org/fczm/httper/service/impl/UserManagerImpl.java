@@ -1,6 +1,7 @@
 package org.fczm.httper.service.impl;
 
 import org.fczm.httper.bean.UserBean;
+import org.fczm.httper.domain.Device;
 import org.fczm.httper.domain.User;
 import org.fczm.httper.service.UserManager;
 import org.fczm.httper.service.util.ManagerTemplate;
@@ -27,11 +28,11 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
     }
 
     public UserBean authByToken(String token) {
-        User user = userDao.getByToken(token);
-        if (user == null) {
+        Device device = deviceDao.getByToken(token);
+        if (device == null) {
             return null;
         }
-        return new UserBean(user);
+        return new UserBean(device.getUser());
     }
 
 }

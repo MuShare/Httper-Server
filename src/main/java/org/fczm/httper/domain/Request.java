@@ -35,10 +35,10 @@ public class Request implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @Column
+    @Column(nullable = false)
     private Boolean deleted;
 
-    @Column
+    @Column(nullable = false)
     private Integer revision;
 
     @ManyToOne

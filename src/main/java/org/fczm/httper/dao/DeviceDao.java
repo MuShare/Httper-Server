@@ -12,4 +12,10 @@ public interface DeviceDao extends CrudDao<Device> {
      */
     Device getByIdentifier(String identifier);
 
+    /**
+     * Get a device by login token
+     * @param token
+     * @return
+     */
+    Device getByToken(String token);
 }

@@ -24,4 +24,13 @@ public class DeviceDaoHibernate extends PageHibernateDaoSupport<Device> implemen
         return devices.get(0);
     }
 
+    public Device getByToken(String token) {
+        String hql = "from Device where loginToken =?";
+        List<Device> devices = (List<Device>)getHibernateTemplate().find(hql, token);
+        if (devices.size() == 0) {
+            return null;
+        }
+        return devices.get(0);
+    }
+
 }

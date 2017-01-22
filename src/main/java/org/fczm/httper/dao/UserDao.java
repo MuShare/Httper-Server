@@ -13,10 +13,4 @@ public interface UserDao extends CrudDao<User> {
      */
     User getByIdentifierWithType(String identifier, String type);
 
-    /**
-     * Get a user by his login token
-     * @param token
-     * @return
-     */
-    User getByToken(String token);
 }

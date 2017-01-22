@@ -26,10 +26,12 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
         request.setBodyType(bodyType);
         request.setBody(body);
         request.setRevision(globalRevision + 1);
+        request.setDeleted(false);
         request.setUser(user);
         if (requestDao.save(request) == null) {
-            return new RequestBean(request);
+            return null;
         }
-        return null;
+        return new RequestBean(request);
     }
+
 }
