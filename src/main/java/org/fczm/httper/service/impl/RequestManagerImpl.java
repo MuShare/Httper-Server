@@ -16,7 +16,7 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
         if (user == null) {
             return null;
         }
-        int globalRevision = requestDao.getMaxRevision();
+        int globalRevision = requestDao.getMaxRevision(user);
         Request request = new Request();
         request.setUrl(url);
         request.setMethod(method);

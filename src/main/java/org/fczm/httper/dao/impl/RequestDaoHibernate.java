@@ -3,6 +3,7 @@ package org.fczm.httper.dao.impl;
 import org.fczm.common.hibernate.support.PageHibernateDaoSupport;
 import org.fczm.httper.dao.RequestDao;
 import org.fczm.httper.domain.Request;
+import org.fczm.httper.domain.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,12 +18,17 @@ public class RequestDaoHibernate extends PageHibernateDaoSupport<Request> implem
         setClass(Request.class);
     }
 
-    public int getMaxRevision() {
-        final String hql = "select max(revision) from Request";
+    public int getMaxRevision(final User user) {
+        final String hql = "select max(revision) from Request where user = ?";
         return getHibernateTemplate().execute(new HibernateCallback<Integer>() {
             public Integer doInHibernate(Session session) throws HibernateException {
                 Query query = session.createQuery(hql);
-                return (Integer) query.uniqueResult();
+                query.setParameter(0, user);
+                Object result = query.uniqueResult();
+                if (result == null) {
+                    return 0;
+                }
+                return (Integer) result;
             }
         });
     }

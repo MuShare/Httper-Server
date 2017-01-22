@@ -1,26 +1,39 @@
 package org.fczm.httper.controller.util;
 
+import org.fczm.httper.service.DeviceManager;
+import org.fczm.httper.service.RequestManager;
+import org.fczm.httper.service.UserManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResponseTool {
+public class ControllerTemplate {
 
-    public static ResponseEntity generateOK(Map<String, Object> result) {
+    @Autowired
+    protected DeviceManager deviceManager;
+
+    @Autowired
+    protected RequestManager requestManager;
+
+    @Autowired
+    protected UserManager userManager;
+
+    public ResponseEntity generateOK(Map<String, Object> result) {
         return generateResponseEntity(result, HttpStatus.OK, null, null);
     }
 
-    public static ResponseEntity generateBadRequest(int errorCode, String errorMessage) {
+    public ResponseEntity generateBadRequest(int errorCode, String errorMessage) {
         return generateResponseEntity(null, HttpStatus.BAD_REQUEST, errorCode, errorMessage);
     }
 
-    public static ResponseEntity generateBadRequest(ErrorCode errorCode) {
+    public ResponseEntity generateBadRequest(ErrorCode errorCode) {
         return generateBadRequest(errorCode.code, errorCode.message);
     }
 
-    public static ResponseEntity generateResponseEntity(Map<String, Object> result, HttpStatus status, Integer errCode, String errMsg) {
+    public ResponseEntity generateResponseEntity(Map<String, Object> result, HttpStatus status, Integer errCode, String errMsg) {
         Map<String, Object> data = new HashMap<String, Object>();
         if (result != null) {
             data.put("result", result);
@@ -34,4 +47,5 @@ public class ResponseTool {
         }
         return new ResponseEntity(data, status);
     }
+
 }

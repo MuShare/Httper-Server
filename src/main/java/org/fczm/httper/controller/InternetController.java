@@ -1,8 +1,8 @@
 package org.fczm.httper.controller;
 
 import org.apache.commons.net.whois.WhoisClient;
+import org.fczm.httper.controller.util.ControllerTemplate;
 import org.fczm.httper.controller.util.ErrorCode;
-import org.fczm.httper.controller.util.ResponseTool;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 @Controller
 @RequestMapping("/api/internet")
-public class InternetController {
+public class InternetController extends ControllerTemplate {
 
     @RequestMapping(value = "/ip", method = RequestMethod.GET)
     public ResponseEntity getRemoteDeviceIpAddress(HttpServletRequest request) {
@@ -30,7 +30,7 @@ public class InternetController {
             ip = request.getRemoteAddr();
         }
         final String remoteIp = ip;
-        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>(){{
             put("remote", remoteIp);
         }});
     }
@@ -43,12 +43,12 @@ public class InternetController {
             final String result = whoisClient.query(domain);
             System.out.println(result);
             whoisClient.disconnect();
-            return ResponseTool.generateOK(new HashMap<String, Object>(){{
+            return generateOK(new HashMap<String, Object>(){{
                 put("info", result);
             }});
         } catch(IOException e) {
             System.err.println("Error I/O exception: " + e.getMessage());
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorToken);
+            return generateBadRequest(ErrorCode.ErrorToken);
         }
     }
 
