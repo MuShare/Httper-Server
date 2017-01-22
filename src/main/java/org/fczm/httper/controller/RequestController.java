@@ -20,13 +20,10 @@ import java.util.HashMap;
 @RequestMapping("/api/request")
 public class RequestController extends ControllerTemplate {
 
-    @RequestMapping(value = "/push", method = RequestMethod.POST)
-    public ResponseEntity pushRequestEntity(String rid, @RequestParam String url,
-                                            @RequestParam String method, @RequestParam long updateAt,
-                                            @RequestParam String headers, @RequestParam String parameters,
-                                            @RequestParam String bodyType, @RequestParam String body,
-                                            @RequestParam int revision, final HttpServletRequest request) {
-
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResponseEntity pushRequestEntity(@RequestParam String url, @RequestParam String method, @RequestParam long updateAt,
+                                            @RequestParam String headers, @RequestParam String parameters, @RequestParam String bodyType,
+                                            @RequestParam String body,  final HttpServletRequest request) {
         String token = request.getHeader("token");
         UserBean user = userManager.authByToken(token);
         if (user == null) {
