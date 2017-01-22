@@ -1,8 +1,8 @@
 package org.fczm.httper.controller;
 
 import org.fczm.httper.bean.UserBean;
+import org.fczm.httper.controller.util.ControllerTemplate;
 import org.fczm.httper.controller.util.ErrorCode;
-import org.fczm.httper.controller.util.ResponseTool;
 import org.fczm.httper.service.DeviceManager;
 import org.fczm.httper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +17,15 @@ import java.util.HashMap;
 
 @Controller
 @RequestMapping("/api/user")
-public class UserController {
-
-    @Autowired
-    private UserManager userManager;
-
-    @Autowired
-    private DeviceManager deviceManager;
+public class UserController extends ControllerTemplate {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestParam String email, @RequestParam String name, @RequestParam String password) {
         if (userManager.getByIdentifierWithType(email, "email") != null) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorEmailExist);
+            return generateBadRequest(ErrorCode.ErrorEmailExist);
         }
         final String uid = userManager.addUser(name, "email", email, password);
-        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>(){{
             put("uid", uid);
         }});
     }
@@ -42,10 +36,10 @@ public class UserController {
                                 HttpServletRequest request) {
         final UserBean user = userManager.getByIdentifierWithType(email, "email");
         if (user == null) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorEmailNotExist);
+            return generateBadRequest(ErrorCode.ErrorEmailNotExist);
         }
         if (!user.getCredential().equals(password)) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorPasswordWrong);
+            return generateBadRequest(ErrorCode.ErrorPasswordWrong);
         }
 
         //Login success, register device.
@@ -60,9 +54,10 @@ public class UserController {
             ip = request.getRemoteAddr();
         }
         final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, ip, user.getUid());
-        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>(){{
             put("token", token);
             put("name", user.getName());
         }});
     }
+
 }
