@@ -1,5 +1,4 @@
 # Httper Server
-===
 This web service of Httper, an iOS REST API test tool for developers. Httper's source code is here: https://github.com/lm2343635/Httper.
 
 Download this app from App Store: https://itunes.apple.com/app/httper/id1166884043
