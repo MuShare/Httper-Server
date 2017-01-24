@@ -7,6 +7,9 @@ import org.fczm.httper.service.RequestManager;
 import org.fczm.httper.service.util.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class RequestManagerImpl extends ManagerTemplate implements RequestManager {
 
@@ -32,6 +35,18 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
             return null;
         }
         return new RequestBean(request);
+    }
+
+    public List getUpdatedRequestsByRevision(int revision, String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return null;
+        }
+        List<RequestBean> requests = new ArrayList<RequestBean>();
+        for (Request request: requestDao.findUpdatedByRevision(revision, user)) {
+            requests.add(new RequestBean(request));
+        }
+        return requests;
     }
 
 }
