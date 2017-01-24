@@ -40,10 +40,12 @@ This is the REST API document of Httper Web service.
 
 2. Request
 ====
-(1)`api/request/add`
+(1)`api/request/push`
 
-  - Add new request entity
+  - Push new request entity
   - method: POST
+  - header:
+    - token(String): login token for authentication
   - param:
     - url(String)
     - method(String)
@@ -58,3 +60,17 @@ This is the REST API document of Httper Web service.
   - error:
     - ErrorToken(901): Token is wrong.
     - ErrorAddRequest(2011): Add request failed because of an internel error.
+
+(2)	`api/request/pull`
+
+  - Pull updated request entity.
+  - method: GET
+  - header:
+    - token(String): login token for authentication
+  - param:
+    - revision(int): global request revision in client
+  - return
+    - requests(List\<RequestBean>): updated requests
+    - revision: global request revision in server, return the revision from parameters if there is no updated requests from server.
+  - error:
+    - ErrorToken(901): Token is wrong.

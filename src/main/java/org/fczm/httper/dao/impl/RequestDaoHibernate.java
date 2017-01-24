@@ -10,6 +10,8 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class RequestDaoHibernate extends PageHibernateDaoSupport<Request> implements RequestDao {
 
@@ -31,6 +33,11 @@ public class RequestDaoHibernate extends PageHibernateDaoSupport<Request> implem
                 return (Integer) result;
             }
         });
+    }
+
+    public List<Request> findUpdatedByRevision(Integer revision, User user) {
+        String hql = "from Request where user = ? and revision > ? order by revision";
+        return (List<Request>) getHibernateTemplate().find(hql, user, revision);
     }
 
 }

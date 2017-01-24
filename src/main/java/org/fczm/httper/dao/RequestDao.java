@@ -4,6 +4,8 @@ import org.fczm.common.hibernate.support.CrudDao;
 import org.fczm.httper.domain.Request;
 import org.fczm.httper.domain.User;
 
+import java.util.List;
+
 public interface RequestDao extends CrudDao<Request> {
 
     /**
@@ -12,5 +14,13 @@ public interface RequestDao extends CrudDao<Request> {
      * @return
      */
     int getMaxRevision(User user);
+
+    /**
+     * Find updated revision by revision and user.
+     * @param revision
+     * @param user
+     * @return
+     */
+    List<Request> findUpdatedByRevision(Integer revision, User user);
 
 }

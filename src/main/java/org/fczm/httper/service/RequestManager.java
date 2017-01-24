@@ -2,6 +2,8 @@ package org.fczm.httper.service;
 
 import org.fczm.httper.bean.RequestBean;
 
+import java.util.List;
+
 public interface RequestManager {
 
     /**
@@ -19,5 +21,13 @@ public interface RequestManager {
     RequestBean addNewRequest(String url, String method, long updateAt, String headers, String parameters,
                               String bodyType, String body, String uid);
 
+
+    /**
+     * Get all updated request for an user
+     * @param revision
+     * @param uid
+     * @return
+     */
+    List getUpdatedRequestsByRevision(int revision, String uid);
 
 }
