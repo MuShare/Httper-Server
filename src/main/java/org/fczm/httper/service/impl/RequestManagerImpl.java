@@ -19,7 +19,6 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
         if (user == null) {
             return null;
         }
-        int globalRevision = requestDao.getMaxRevision(user);
         Request request = new Request();
         request.setUrl(url);
         request.setMethod(method);
@@ -28,7 +27,7 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
         request.setParameters(parameters);
         request.setBodyType(bodyType);
         request.setBody(body);
-        request.setRevision(globalRevision + 1);
+        request.setRevision(requestDao.getMaxRevision(user) + 1);
         request.setDeleted(false);
         request.setUser(user);
         if (requestDao.save(request) == null) {
@@ -47,6 +46,31 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
             requests.add(new RequestBean(request));
         }
         return requests;
+    }
+
+    public int removeRequestByRid(String rid, String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return RemoveFailedNotFoundUser;
+        }
+        Request request = requestDao.get(rid);
+        if (request == null) {
+            return RemoveFailedNotFoundRequest;
+        }
+        if (request.getUser() != user) {
+            return RemoveFailedNoPrivilege;
+        }
+        request.setUrl(null);
+        request.setMethod(null);
+        request.setUpdateAt(null);
+        request.setHeaders(null);
+        request.setParameters(null);
+        request.setBodyType(null);
+        request.setBody(null);
+        request.setRevision(requestDao.getMaxRevision(user) + 1);
+        request.setDeleted(true);
+        requestDao.update(request);
+        return request.getRevision();
     }
 
 }
