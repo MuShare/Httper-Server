@@ -39,6 +39,24 @@ public class RequestController extends ControllerTemplate {
         }});
     }
 
+    @RequestMapping(value = "/push", method = RequestMethod.DELETE)
+    public ResponseEntity deleteRequest(@RequestParam String rid, HttpServletRequest request) {
+        UserBean user = auth(request);
+        if (user == null) {
+            return generateBadRequest(ErrorCode.ErrorToken);
+        }
+        final int revision = requestManager.removeRequestByRid(rid, user.getUid());
+        if (revision == RequestManager.RemoveFailedNotFoundRequest) {
+            return generateBadRequest(ErrorCode.ErrorDeleteRequestNotFound);
+        }
+        if (revision == RequestManager.RemoveFailedNoPrivilege) {
+            return generateBadRequest(ErrorCode.ErrorDeleteRequestNoPrivilege);
+        }
+        return generateOK(new HashMap<String, Object>() {{
+            put("revision", revision);
+        }});
+    }
+
     @RequestMapping(value = "/pull", method = RequestMethod.GET)
     public ResponseEntity pullUpdatedRequest(@RequestParam int revision, final HttpServletRequest request) {
         UserBean user = auth(request);

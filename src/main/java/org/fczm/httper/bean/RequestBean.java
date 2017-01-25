@@ -106,15 +106,17 @@ public class RequestBean {
 
     public RequestBean(Request request) {
         this.rid = request.getRid();
-        this.url = request.getUrl();
-        this.method = request.getMethod();
-        this.updateAt = request.getUpdateAt();
-        this.headers = request.getHeaders();
-        this.parameters = request.getParameters();
-        this.bodyType = request.getBodyType();
-        this.body = request.getBody();
         this.deleted = request.getDeleted();
         this.revision = request.getRevision();
         this.uid = request.getUser().getUid();
+        if (!request.getDeleted()) {
+            this.url = request.getUrl();
+            this.method = request.getMethod();
+            this.updateAt = request.getUpdateAt();
+            this.headers = request.getHeaders();
+            this.parameters = request.getParameters();
+            this.bodyType = request.getBodyType();
+            this.body = request.getBody();
+        }
     }
 }

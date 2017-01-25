@@ -61,7 +61,22 @@ This is the REST API document of Httper Web service.
     - ErrorToken(901): Token is wrong.
     - ErrorAddRequest(2011): Add request failed because of an internel error.
 
-(2)	`api/request/pull`
+(2)`api/request/push`
+
+  - Delete a request entity in server
+  - method: DELETE
+  - header:
+    - token(String): login token for authentication
+  - param:
+    - rid(String): physical id in server of this request entity
+  - return:
+    - revision(int): revision for this delete request, client should update its local revision by this
+  - error:
+    - ErrorToken(901): Token is wrong.
+    - ErrorDeleteRequestNotFound(2021): Request not found. This may caused by commiting a wrong request.
+    - ErrorDeleteRequestNoPrivilege(2022): This user has not privilege to delete this request.
+ 
+(3)	`api/request/pull`
 
   - Pull updated request entity.
   - method: GET
