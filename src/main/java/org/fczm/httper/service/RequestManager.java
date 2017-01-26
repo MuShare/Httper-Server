@@ -7,6 +7,13 @@ import java.util.List;
 public interface RequestManager {
 
     /**
+     * Get global request revision
+     * @param uid
+     * @return
+     */
+    int getGlobalRequestRevision(String uid);
+
+    /**
      * Add a new request.
      * @param url
      * @param method
@@ -28,7 +35,7 @@ public interface RequestManager {
      * @param uid
      * @return
      */
-    List getUpdatedRequestsByRevision(int revision, String uid);
+    List<RequestBean> getUpdatedRequestsByRevision(int revision, String uid);
 
     public final static int RemoveFailedNotFoundUser = -2021;
     public final static int RemoveFailedNotFoundRequest = -2022;

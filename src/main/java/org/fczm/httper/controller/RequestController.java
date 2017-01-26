@@ -4,6 +4,7 @@ import org.fczm.httper.bean.RequestBean;
 import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.controller.util.ControllerTemplate;
 import org.fczm.httper.controller.util.ErrorCode;
+import org.fczm.httper.domain.Request;
 import org.fczm.httper.service.RequestManager;
 import org.fczm.httper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,10 +65,20 @@ public class RequestController extends ControllerTemplate {
         if (user == null) {
             return generateBadRequest(ErrorCode.ErrorToken);
         }
-        final List<RequestBean> requests = requestManager.getUpdatedRequestsByRevision(revision, user.getUid());
+        List<RequestBean> requests = requestManager.getUpdatedRequestsByRevision(revision, user.getUid());
+        final List<RequestBean> updated = new ArrayList<RequestBean>();
+        final List<String> deleted = new ArrayList<String>();
+        for (RequestBean requestBean: requests) {
+            if (requestBean.isDeleted()) {
+                deleted.add(requestBean.getRid());
+            } else {
+                updated.add(requestBean);
+            }
+        }
         final int globalRevision = requests.size() == 0? revision: requests.get(requests.size() - 1).getRevision();
         return generateOK(new HashMap<String, Object>(){{
-            put("requests", requests);
+            put("updated", updated);
+            put("deleted", deleted);
             put("revision", globalRevision);
         }});
     }
