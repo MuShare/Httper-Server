@@ -13,8 +13,16 @@ import java.util.List;
 @Service
 public class RequestManagerImpl extends ManagerTemplate implements RequestManager {
 
+    public int getGlobalRequestRevision(String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return 0;
+        }
+        return requestDao.getMaxRevision(user);
+    }
+
     public RequestBean addNewRequest(String url, String method, long updateAt, String headers,
-                                  String parameters, String bodyType, String body, String uid) {
+                                     String parameters, String bodyType, String body, String uid) {
         User user = userDao.get(uid);
         if (user == null) {
             return null;
@@ -36,7 +44,7 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
         return new RequestBean(request);
     }
 
-    public List getUpdatedRequestsByRevision(int revision, String uid) {
+    public List<RequestBean> getUpdatedRequestsByRevision(int revision, String uid) {
         User user = userDao.get(uid);
         if (user == null) {
             return null;

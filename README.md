@@ -85,7 +85,8 @@ This is the REST API document of Httper Web service.
   - param:
     - revision(int): global request revision in client
   - return
-    - requests(List\<RequestBean>): updated requests
+    - updated(List\<RequestBean>): updated requests
+    - deleted(List\<String>): rid list of deleted requests
     - revision: global request revision in server, return the revision from parameters if there is no updated requests from server.
   - error:
     - ErrorToken(901): Token is wrong.
