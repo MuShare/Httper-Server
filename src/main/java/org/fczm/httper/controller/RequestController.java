@@ -1,7 +1,5 @@
 package org.fczm.httper.controller;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.fczm.httper.bean.RequestBean;
 import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.controller.util.ControllerTemplate;
@@ -17,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api/request")
@@ -41,15 +40,20 @@ public class RequestController extends ControllerTemplate {
     }
 
     @RequestMapping(value = "/push/list", method = RequestMethod.POST)
-    public ResponseEntity addRequests(@RequestParam String requestsJSON, HttpServletRequest request) {
-        JSONArray requests = JSONArray.fromObject(requestsJSON);
-        for (int i = 0; i < requests.size(); i++) {
-            JSONObject requestObject = requests.getJSONObject(i);
-            System.out.println(requestObject.getString("headers"));
-            System.out.println(requestObject.getString("parameters"));
+    public ResponseEntity addRequests(@RequestParam String requestsJSON, final HttpServletRequest request) {
+        UserBean user = auth(request);
+        if (user == null) {
+            return generateBadRequest(ErrorCode.ErrorToken);
+        }
+        final List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
+        for (final RequestBean requestBean: requestManager.receiveClientRequests(requestsJSON, user.getUid())) {
+            results.add(new HashMap<String, Object>() {{
+                put("revision", requestBean == null? -1: requestBean.getRevision());
+                put("rid", request == null? "": requestBean.getRid());
+            }});
         }
         return generateOK(new HashMap<String, Object>(){{
-
+            put("results", results);
         }});
     }
 

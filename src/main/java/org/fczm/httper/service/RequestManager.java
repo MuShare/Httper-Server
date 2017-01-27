@@ -3,6 +3,7 @@ package org.fczm.httper.service;
 import org.fczm.httper.bean.RequestBean;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RequestManager {
 
@@ -28,6 +29,13 @@ public interface RequestManager {
     RequestBean addNewRequest(String url, String method, long updateAt, String headers, String parameters,
                               String bodyType, String body, String uid);
 
+    /**
+     * Receive multiple request entities from client by JSON string of request array
+     * @param requestsJSON
+     * @param uid
+     * @return the list of request's physical id and revision
+     */
+    List<RequestBean> receiveClientRequests(String requestsJSON, String uid);
 
     /**
      * Get all updated request for an user

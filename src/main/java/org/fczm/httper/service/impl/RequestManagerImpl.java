@@ -1,5 +1,7 @@
 package org.fczm.httper.service.impl;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.fczm.httper.bean.RequestBean;
 import org.fczm.httper.domain.Request;
 import org.fczm.httper.domain.User;
@@ -8,7 +10,9 @@ import org.fczm.httper.service.util.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RequestManagerImpl extends ManagerTemplate implements RequestManager {
@@ -42,6 +46,24 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
             return null;
         }
         return new RequestBean(request);
+    }
+
+    public List<RequestBean> receiveClientRequests(String requestsJSONArray, String uid) {
+        List <RequestBean> requests = new ArrayList<RequestBean>();
+        JSONArray requestArray = JSONArray.fromObject(requestsJSONArray);
+        for (int i = 0; i < requestArray.size(); i++) {
+            JSONObject requestObject = requestArray.getJSONObject(i);
+            String url = requestObject.getString("url");
+            String method = requestObject.getString("method");
+            String headers = requestObject.getString("headers");
+            String parameters = requestObject.getString("parameters");
+            String bodyType = requestObject.getString("bodyType");
+            String body = requestObject.getString("body");
+            int updateAt = requestObject.getInt("updateAt");
+            // We should add a new request and return its revision id.
+            requests.add(addNewRequest(url, method, updateAt, headers, parameters, bodyType, body, uid));
+        }
+        return requests;
     }
 
     public List<RequestBean> getUpdatedRequestsByRevision(int revision, String uid) {
