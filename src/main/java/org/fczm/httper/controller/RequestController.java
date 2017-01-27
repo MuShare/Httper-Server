@@ -40,13 +40,14 @@ public class RequestController extends ControllerTemplate {
     }
 
     @RequestMapping(value = "/push/list", method = RequestMethod.POST)
-    public ResponseEntity addRequests(@RequestParam String requestsJSON, final HttpServletRequest request) {
+    public ResponseEntity addRequests(@RequestParam String requestsJSONArray, final HttpServletRequest request) {
         UserBean user = auth(request);
         if (user == null) {
             return generateBadRequest(ErrorCode.ErrorToken);
         }
         final List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
-        for (final RequestBean requestBean: requestManager.receiveClientRequests(requestsJSON, user.getUid())) {
+        final List<RequestBean> requestBeans = requestManager.receiveClientRequests(requestsJSONArray, user.getUid());
+        for (final RequestBean requestBean: requestBeans) {
             results.add(new HashMap<String, Object>() {{
                 put("revision", requestBean == null? -1: requestBean.getRevision());
                 put("rid", request == null? "": requestBean.getRid());
@@ -54,6 +55,7 @@ public class RequestController extends ControllerTemplate {
         }
         return generateOK(new HashMap<String, Object>(){{
             put("results", results);
+            put("revision", requestBeans.get(requestBeans.size() - 1).getRevision());
         }});
     }
 
