@@ -1,13 +1,12 @@
 package org.fczm.httper.controller;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.fczm.httper.bean.RequestBean;
 import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.controller.util.ControllerTemplate;
 import org.fczm.httper.controller.util.ErrorCode;
-import org.fczm.httper.domain.Request;
 import org.fczm.httper.service.RequestManager;
-import org.fczm.httper.service.UserManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,8 +41,13 @@ public class RequestController extends ControllerTemplate {
     }
 
     @RequestMapping(value = "/push/list", method = RequestMethod.POST)
-    public ResponseEntity addRequests(HttpServletRequest request) {
-        System.out.println(getBody(request));
+    public ResponseEntity addRequests(@RequestParam String requestsJSON, HttpServletRequest request) {
+        JSONArray requests = JSONArray.fromObject(requestsJSON);
+        for (int i = 0; i < requests.size(); i++) {
+            JSONObject requestObject = requests.getJSONObject(i);
+            System.out.println(requestObject.getString("headers"));
+            System.out.println(requestObject.getString("parameters"));
+        }
         return generateOK(new HashMap<String, Object>(){{
 
         }});
@@ -93,40 +93,6 @@ public class RequestController extends ControllerTemplate {
             put("deleted", deleted);
             put("revision", globalRevision);
         }});
-    }
-
-    public static String getBody(HttpServletRequest request) {
-
-        String body = null;
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
-
-        try {
-            InputStream inputStream = request.getInputStream();
-            if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                char[] charBuffer = new char[128];
-                int bytesRead = -1;
-                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                    stringBuilder.append(charBuffer, 0, bytesRead);
-                }
-            } else {
-                stringBuilder.append("");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        body = stringBuilder.toString();
-        return body;
     }
 
 }
