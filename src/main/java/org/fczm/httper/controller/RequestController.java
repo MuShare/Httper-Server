@@ -50,7 +50,7 @@ public class RequestController extends ControllerTemplate {
         for (final RequestBean requestBean: requestBeans) {
             results.add(new HashMap<String, Object>() {{
                 put("revision", requestBean == null? -1: requestBean.getRevision());
-                put("rid", request == null? "": requestBean.getRid());
+                put("rid", requestBean == null? "": requestBean.getRid());
             }});
         }
         return generateOK(new HashMap<String, Object>(){{

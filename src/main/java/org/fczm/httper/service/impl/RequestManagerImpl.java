@@ -57,8 +57,8 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
             String parameters = requestObject.getString("parameters");
             String bodyType = requestObject.getString("bodyType");
             String body = requestObject.getString("body");
-            int updateAt = requestObject.getInt("updateAt");
-            // We should add a new request and return its revision id.
+            long updateAt = requestObject.getLong("updateAt");
+            // Add new request entity.
             requests.add(addNewRequest(url, method, updateAt, headers, parameters, bodyType, body, uid));
         }
         return requests;

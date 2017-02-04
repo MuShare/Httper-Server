@@ -2,6 +2,7 @@ package org.fczm.httper.controller.common;
 
 import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.service.DeviceManager;
+import org.fczm.httper.service.ProjectManager;
 import org.fczm.httper.service.RequestManager;
 import org.fczm.httper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ControllerTemplate {
 
     @Autowired
     protected UserManager userManager;
+
+    @Autowired
+    protected ProjectManager projectManager;
 
     protected ResponseEntity generateOK(Map<String, Object> result) {
         return generateResponseEntity(result, HttpStatus.OK, null, null);

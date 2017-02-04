@@ -29,6 +29,13 @@ public class Project implements Serializable {
     @Column(nullable = false)
     private Integer revision;
 
+    @Column(nullable = false)
+    private Boolean deleted;
+
+    @ManyToOne
+    @JoinColumn(name = "uid")
+    private User user;
+
     public String getPid() {
         return pid;
     }
@@ -77,4 +84,19 @@ public class Project implements Serializable {
         this.revision = revision;
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
