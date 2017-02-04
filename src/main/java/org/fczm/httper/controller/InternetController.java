@@ -1,8 +1,8 @@
 package org.fczm.httper.controller;
 
 import org.apache.commons.net.whois.WhoisClient;
-import org.fczm.httper.controller.util.ControllerTemplate;
-import org.fczm.httper.controller.util.ErrorCode;
+import org.fczm.httper.controller.common.ControllerTemplate;
+import org.fczm.httper.controller.common.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

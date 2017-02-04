@@ -4,7 +4,7 @@ import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.domain.Device;
 import org.fczm.httper.domain.User;
 import org.fczm.httper.service.UserManager;
-import org.fczm.httper.service.util.ManagerTemplate;
+import org.fczm.httper.service.common.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
 @Service

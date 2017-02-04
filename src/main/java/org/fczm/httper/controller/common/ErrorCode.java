@@ -1,4 +1,4 @@
-package org.fczm.httper.controller.util;
+package org.fczm.httper.controller.common;
 
 public enum ErrorCode {
     ErrorToken(901, "Token is wrong."),

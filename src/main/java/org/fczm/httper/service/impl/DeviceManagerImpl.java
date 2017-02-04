@@ -3,7 +3,7 @@ package org.fczm.httper.service.impl;
 import org.fczm.httper.domain.Device;
 import org.fczm.httper.domain.User;
 import org.fczm.httper.service.DeviceManager;
-import org.fczm.httper.service.util.ManagerTemplate;
+import org.fczm.httper.service.common.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

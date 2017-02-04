@@ -1,6 +1,7 @@
-package org.fczm.httper.service.util;
+package org.fczm.httper.service.common;
 
 import org.fczm.httper.dao.DeviceDao;
+import org.fczm.httper.dao.ProjectDao;
 import org.fczm.httper.dao.RequestDao;
 import org.fczm.httper.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class ManagerTemplate {
 
     @Autowired
     protected DeviceDao deviceDao;
+
+    @Autowired
+    protected ProjectDao projectDao;
 
     public UserDao getUserDao() {
         return userDao;
@@ -32,4 +36,19 @@ public class ManagerTemplate {
         this.requestDao = requestDao;
     }
 
+    public DeviceDao getDeviceDao() {
+        return deviceDao;
+    }
+
+    public void setDeviceDao(DeviceDao deviceDao) {
+        this.deviceDao = deviceDao;
+    }
+
+    public ProjectDao getProjectDao() {
+        return projectDao;
+    }
+
+    public void setProjectDao(ProjectDao projectDao) {
+        this.projectDao = projectDao;
+    }
 }

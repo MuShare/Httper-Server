@@ -1,4 +1,4 @@
-package org.fczm.httper.controller.util;
+package org.fczm.httper.controller.common;
 
 import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.service.DeviceManager;

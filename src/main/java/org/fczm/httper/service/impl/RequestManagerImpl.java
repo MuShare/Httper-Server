@@ -6,13 +6,11 @@ import org.fczm.httper.bean.RequestBean;
 import org.fczm.httper.domain.Request;
 import org.fczm.httper.domain.User;
 import org.fczm.httper.service.RequestManager;
-import org.fczm.httper.service.util.ManagerTemplate;
+import org.fczm.httper.service.common.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class RequestManagerImpl extends ManagerTemplate implements RequestManager {

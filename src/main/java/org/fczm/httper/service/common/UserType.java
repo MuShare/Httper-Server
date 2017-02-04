@@ -1,4 +1,4 @@
-package org.fczm.httper.service.util;
+package org.fczm.httper.service.common;
 
 public enum UserType {
 
