@@ -93,7 +93,7 @@ public class RequestController extends ControllerTemplate {
                 updated.add(requestBean);
             }
         }
-        final int globalRevision = requests.size() == 0? revision: requests.get(requests.size() - 1).getRevision();
+        final int globalRevision = (requests.size() == 0)? revision: requests.get(requests.size() - 1).getRevision();
         return generateOK(new HashMap<String, Object>(){{
             put("updated", updated);
             put("deleted", deleted);

@@ -10,6 +10,8 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ProjectDaoHibernate extends PageHibernateDaoSupport<Project> implements ProjectDao {
 
@@ -22,14 +24,19 @@ public class ProjectDaoHibernate extends PageHibernateDaoSupport<Project> implem
         final String hql = "select max(revision) from Project where user = ?";
         return getHibernateTemplate().execute(new HibernateCallback<Integer>() {
             public Integer doInHibernate(Session session) throws HibernateException {
-                Query query = session.createQuery(hql);
-                query.setParameter(0, user);
-                Object result = query.uniqueResult();
-                if (result == null) {
-                    return 0;
-                }
-                return (Integer) result;
+            Query query = session.createQuery(hql);
+            query.setParameter(0, user);
+            Object result = query.uniqueResult();
+            if (result == null) {
+                return 0;
+            }
+            return (Integer) result;
             }
         });
+    }
+
+    public List<Project> findUpdatedByRevision(Integer revision, User user) {
+        String hql = "from Project where user = ? and revision > ? order by revision";
+        return (List<Project>)getHibernateTemplate().find(hql, user, revision);
     }
 }

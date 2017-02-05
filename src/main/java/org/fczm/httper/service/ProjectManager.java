@@ -25,4 +25,12 @@ public interface ProjectManager {
      */
     List<ProjectBean> receiveClientProjects(String projectsJSONArray, String uid);
 
+    /**
+     * Get all updated projects for an user
+     * @param revision
+     * @param uid
+     * @return
+     */
+    List<ProjectBean> getUpdatedProjectsByRevision(int revision, String uid);
+
 }

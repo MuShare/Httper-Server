@@ -40,4 +40,27 @@ public class ProjectController extends ControllerTemplate {
         }});
     }
 
+    @RequestMapping(value = "/pull", method = RequestMethod.GET)
+    public ResponseEntity pullUpdatedProject(@RequestParam int revision, HttpServletRequest request) {
+        UserBean user = auth(request);
+        if (user == null) {
+            return generateBadRequest(ErrorCode.ErrorToken);
+        }
+        List<ProjectBean> projects = projectManager.getUpdatedProjectsByRevision(revision, user.getUid());
+        final List<ProjectBean> updated = new ArrayList<ProjectBean>();
+        final List<String> deleted = new ArrayList<String>();
+        for (ProjectBean project: projects) {
+            if (project.isDeleted()) {
+                deleted.add(project.getPid());
+            } else {
+                updated.add(project);
+            }
+        }
+        final int globalRevision = (projects.size() == 0)? revision: projects.get(projects.size() - 1).getRevision();
+        return generateOK(new HashMap<String, Object>(){{
+            put("updated", updated);
+            put("deleted", deleted);
+            put("revision", globalRevision);
+        }});
+    }
 }

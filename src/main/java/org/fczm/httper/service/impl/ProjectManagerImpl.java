@@ -53,4 +53,15 @@ public class ProjectManagerImpl extends ManagerTemplate implements ProjectManage
         return projects;
     }
 
+    public List<ProjectBean> getUpdatedProjectsByRevision(int revision, String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return null;
+        }
+        List<ProjectBean> projects = new ArrayList<ProjectBean>();
+        for (Project project: projectDao.findUpdatedByRevision(revision, user)) {
+            projects.add(new ProjectBean(project));
+        }
+        return projects;
+    }
 }
