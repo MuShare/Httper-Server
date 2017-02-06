@@ -40,6 +40,21 @@ public class ProjectController extends ControllerTemplate {
         }});
     }
 
+    @RequestMapping(value = "push", method = RequestMethod.DELETE)
+    public ResponseEntity deletePorject(@RequestParam String pid, HttpServletRequest request) {
+        UserBean user = auth(request);
+        if (user == null) {
+            return generateBadRequest(ErrorCode.ErrorToken);
+        }
+        final int revision = projectManager.removeProjectByPid(pid, user.getUid());
+        if (revision < 0) {
+            return generateBadRequest(ErrorCode.ErrorDeleteProject);
+        }
+        return generateOK(new HashMap<String, Object>() {{
+            put("revision", revision);
+        }});
+    }
+
     @RequestMapping(value = "/pull", method = RequestMethod.GET)
     public ResponseEntity pullUpdatedProject(@RequestParam int revision, HttpServletRequest request) {
         UserBean user = auth(request);

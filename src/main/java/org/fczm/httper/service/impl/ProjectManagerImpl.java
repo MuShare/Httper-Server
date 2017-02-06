@@ -64,4 +64,26 @@ public class ProjectManagerImpl extends ManagerTemplate implements ProjectManage
         }
         return projects;
     }
+
+    public int removeProjectByPid(String pid, String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return -1;
+        }
+        Project project = projectDao.get(pid);
+        if (project == null) {
+            return -1;
+        }
+        if (project.getUser() != user) {
+            return -1;
+        }
+        project.setPname(null);
+        project.setPrivilege(null);
+        project.setIntroduction(null);
+        project.setUpdateAt(null);
+        project.setRevision(projectDao.getMaxRevision(user) + 1);
+        project.setDeleted(true);
+        projectDao.update(project);
+        return project.getRevision();
+    }
 }

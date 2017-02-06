@@ -33,4 +33,11 @@ public interface ProjectManager {
      */
     List<ProjectBean> getUpdatedProjectsByRevision(int revision, String uid);
 
+    /**
+     * Remove project by pid for an user
+     * @param pid
+     * @param uid
+     * @return
+     */
+    int removeProjectByPid(String pid, String uid);
 }
