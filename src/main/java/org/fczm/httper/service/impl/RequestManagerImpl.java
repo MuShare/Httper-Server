@@ -79,14 +79,14 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
     public int removeRequestByRid(String rid, String uid) {
         User user = userDao.get(uid);
         if (user == null) {
-            return RemoveFailedNotFoundUser;
+            return -1;
         }
         Request request = requestDao.get(rid);
         if (request == null) {
-            return RemoveFailedNotFoundRequest;
+            return -1;
         }
         if (request.getUser() != user) {
-            return RemoveFailedNoPrivilege;
+            return -1;
         }
         request.setUrl(null);
         request.setMethod(null);
