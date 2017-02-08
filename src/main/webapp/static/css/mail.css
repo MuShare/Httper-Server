@@ -1,0 +1,11 @@
+body {
+    background: #fafafa;
+}
+
+#app-name {
+    margin: 20px 0;
+}
+
+#message-content {
+    width: 100%;
+}
