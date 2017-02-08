@@ -4,9 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <title>Httper</title>
-        <link rel="Shortcut Icon" href="/static/images/favicon.ico">
-        <link rel="stylesheet" href="/static/css/semantic.min.css">
-        <link rel="stylesheet" href="/static/css/mail.css">
+        <link rel="Shortcut Icon" href="http://httper.mushare.cn/static/images/favicon.ico">
+        <link rel="stylesheet" href="http://httper.mushare.cn/static/css/semantic.min.css">
+        <link rel="stylesheet" href="http://httper.mushare.cn/static/css/mail.css">
     </head>
     <body>
         <div class="ui container">
@@ -16,19 +16,19 @@
                     <div class="header">Reset Your Password</div>
                 </div>
                 <div class="content">
-                    <h4 class="ui header">Dear Meng Li,</h4>
+                    <h3 class="ui header">Dear #{username},</h3>
                     <div class="ui small feed">
                         <div class="event">
                             <div class="content">
-                                <div class="summary">We send this mail to you, because you have sent a request for resetting your password for Httper.</div>
+                                <h4>We send this mail to you, because you have sent a request for resetting your password of Httper.</h4>
                             </div>
                         </div>
-
-                        <div class="ui form">
-                            <div class="field">
-                                <label>Your New Password</label>
-                                <input type="text" placeholder="joe@schmoe.com">
-                                <button class="ui submit button basic grey">Submit</button>
+                        <div class="event">
+                            <div class="content">
+                                <h4>You can reset your password by clicking this button.</h4>
+                                <a href="#{link}" class="ui submit button primary">Reset Password</a>
+                                <h4>If you cannot open it, please copy this link and open it in your browser: </h4>
+                                <a href="#{link}">#{link}</a>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
             </div>
             <div class="ui vertical footer segment">
                 <div class="ui center aligned container">
-                    <img src="/static/images/logo.png" class="ui centered mini image rounded">
+                    <img src="http://httper.mushare.cn/static/images/logo.png" class="ui centered mini image rounded">
                     <div class="ui horizontal small divided link list">
                         <a class="item" href="http://httper.mushare.cn" target="_blank">MuShare Group © 2015 - 2017. All Rights Reserved.</a>
                     </div>

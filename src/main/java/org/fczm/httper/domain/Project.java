@@ -33,7 +33,7 @@ public class Project implements Serializable {
     private Boolean deleted;
 
     @ManyToOne
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "uid", nullable = false)
     private User user;
 
     public String getPid() {

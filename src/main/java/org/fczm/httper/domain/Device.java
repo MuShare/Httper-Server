@@ -33,7 +33,7 @@ public class Device implements Serializable {
     private String lan;
 
     @ManyToOne
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "uid", nullable = false)
     private User user;
 
     public String getDid() {

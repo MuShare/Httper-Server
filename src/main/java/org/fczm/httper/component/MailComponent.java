@@ -1,4 +1,6 @@
-package org.fczm.common.util;
+package org.fczm.httper.component;
+
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +22,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
-public class MailManager {
+@Component
+public class MailComponent {
 
     // Senders's email address
     private String sender;
@@ -52,10 +55,9 @@ public class MailManager {
      * @param receiver
      * @param subject
      * @param content
-     * @param attachments
      * @return
      */
-    public boolean send(String receiver, String subject, String content, List<String> attachments) {
+    public boolean send(String receiver, String subject, String content) {
         // Create property object for session
         Properties props = new Properties();
         props.put("mail.smtp.host", smtp);

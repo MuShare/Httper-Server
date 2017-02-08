@@ -42,7 +42,7 @@ public class Request implements Serializable {
     private Integer revision;
 
     @ManyToOne
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "uid", nullable = false)
     private User user;
 
     public String getRid() {

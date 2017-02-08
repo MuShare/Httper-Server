@@ -14,6 +14,7 @@
     <import resource="dwr.xml"/>
 
     <context:property-placeholder location="WEB-INF/hibernate.properties"/>
+    <context:property-placeholder location="WEB-INF/mail.properties"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${driverClassName}"></property>
@@ -43,4 +44,11 @@
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="mailComponent" class="org.fczm.httper.component.MailComponent">
+        <property name="sender" value="test@mushare.cn"/>
+        <property name="smtp" value="smtp.ym.163.com"/>
+        <property name="username" value="test@mushare.cn"/>
+        <property name="password" value="test_account"/>
+    </bean>
 </beans>
