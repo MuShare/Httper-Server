@@ -68,7 +68,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
             return false;
         }
         String rootPath = this.getClass().getClassLoader().getResource("/").getPath().split("WEB-INF")[0];
-        MengularDocument document = new MengularDocument(rootPath, 0, "template/mail.html", null);
+        MengularDocument document = new MengularDocument(rootPath, 0, "template/modifyPasswordMail.html", null);
         document.setValue("username", user.getName());
         document.setValue("link", "http://httper.mushare.cn/resetPassword.html?vid=" + vid);
         return mailComponent.send(user.getIdentifier(), "Reset yout Httper password", document.getDocument());

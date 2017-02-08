@@ -1,14 +1,7 @@
 package org.fczm.common.util;
 
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -226,5 +219,23 @@ public class MengularDocument {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String readResource(String path) {
+        String fileAsString = null;
+        try {
+            InputStream is = new FileInputStream(rootPath + path);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+            String line = buf.readLine();
+            StringBuilder sb = new StringBuilder();
+            while (line != null) {
+                sb.append(line).append("\n");
+                line = buf.readLine();
+            }
+            fileAsString = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileAsString;
     }
 }
