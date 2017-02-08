@@ -6,18 +6,20 @@ import org.fczm.httper.dao.RequestDao;
 import org.fczm.httper.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
+
 public class ManagerTemplate {
 
-    @Autowired
+    @Resource
     protected UserDao userDao;
 
-    @Autowired
+    @Resource
     protected RequestDao requestDao;
 
-    @Autowired
+    @Resource
     protected DeviceDao deviceDao;
 
-    @Autowired
+    @Resource
     protected ProjectDao projectDao;
 
     public UserDao getUserDao() {

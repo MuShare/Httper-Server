@@ -1,5 +1,8 @@
 package org.fczm.httper.service.impl;
 
+import org.directwebremoting.annotations.RemoteMethod;
+import org.directwebremoting.annotations.RemoteProxy;
+import org.directwebremoting.spring.SpringCreator;
 import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.domain.Device;
 import org.fczm.httper.domain.User;
@@ -8,6 +11,7 @@ import org.fczm.httper.service.common.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
+@RemoteProxy(name = "UserManager")
 public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
     public String addUser(String name, String type, String identifier, String credential) {
@@ -35,4 +39,8 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return new UserBean(device.getUser());
     }
 
+    @RemoteMethod
+    public boolean modifyPassword(String code, String password) {
+        return false;
+    }
 }

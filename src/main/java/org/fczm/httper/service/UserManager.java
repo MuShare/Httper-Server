@@ -29,5 +29,12 @@ public interface UserManager {
      */
     UserBean authByToken(String token);
 
+    /**
+     *
+     * @param code
+     * @param password
+     * @return
+     */
+    boolean modifyPassword(String code, String password);
 }
 

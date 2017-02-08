@@ -8,7 +8,10 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="org.fczm.httper"/>
+    <import resource="dwr.xml"/>
 
     <context:property-placeholder location="WEB-INF/hibernate.properties"/>
 
@@ -40,5 +43,4 @@
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
 </beans>

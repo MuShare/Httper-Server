@@ -1,7 +1,9 @@
 package org.fczm.httper.bean;
 
+import org.directwebremoting.annotations.DataTransferObject;
 import org.fczm.httper.domain.User;
 
+@DataTransferObject
 public class UserBean {
 
     private String uid;

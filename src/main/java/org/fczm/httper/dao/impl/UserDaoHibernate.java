@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository()
+@Repository
 public class UserDaoHibernate extends PageHibernateDaoSupport<User> implements UserDao {
 
     public UserDaoHibernate() {
