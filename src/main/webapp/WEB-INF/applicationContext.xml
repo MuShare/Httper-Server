@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
@@ -10,17 +10,16 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <context:property-placeholder location="WEB-INF/config.properties"/>
     <context:component-scan base-package="org.fczm.httper"/>
     <import resource="dwr.xml"/>
-
-    <context:property-placeholder location="WEB-INF/hibernate.properties"/>
-    <context:property-placeholder location="WEB-INF/mail.properties"/>
+    <import resource="component.xml"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="${driverClassName}"></property>
-        <property name="jdbcUrl" value="${url}"></property>
-        <property name="user" value="${username}"></property>
-        <property name="password" value="${password}"></property>
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="${db.url}"></property>
+        <property name="user" value="${db.username}"></property>
+        <property name="password" value="${db.password}"></property>
         <property name="maxPoolSize" value="40"></property>
         <property name="minPoolSize" value="1"></property>
         <property name="initialPoolSize" value="1"></property>
@@ -33,7 +32,7 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
             </props>
@@ -45,10 +44,4 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean id="mailComponent" class="org.fczm.httper.component.MailComponent">
-        <property name="sender" value="test@mushare.cn"/>
-        <property name="smtp" value="smtp.ym.163.com"/>
-        <property name="username" value="test@mushare.cn"/>
-        <property name="password" value="test_account"/>
-    </bean>
 </beans>

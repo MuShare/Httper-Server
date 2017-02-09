@@ -1,5 +1,7 @@
 package org.fczm.httper.service.common;
 
+import org.fczm.httper.component.ConfigComponent;
+import org.fczm.httper.component.MailComponent;
 import org.fczm.httper.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +21,12 @@ public class ManagerTemplate {
 
     @Autowired
     protected VerificationDao verificationDao;
+
+    @Autowired
+    protected MailComponent mailComponent;
+
+    @Autowired
+    protected ConfigComponent configComponent;
 
     public UserDao getUserDao() {
         return userDao;
@@ -58,5 +66,21 @@ public class ManagerTemplate {
 
     public void setVerificationDao(VerificationDao verificationDao) {
         this.verificationDao = verificationDao;
+    }
+
+    public MailComponent getMailComponent() {
+        return mailComponent;
+    }
+
+    public void setMailComponent(MailComponent mailComponent) {
+        this.mailComponent = mailComponent;
+    }
+
+    public ConfigComponent getConfigComponent() {
+        return configComponent;
+    }
+
+    public void setConfigComponent(ConfigComponent configComponent) {
+        this.configComponent = configComponent;
     }
 }

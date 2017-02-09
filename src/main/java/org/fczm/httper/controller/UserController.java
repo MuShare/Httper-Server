@@ -57,4 +57,17 @@ public class UserController extends ControllerTemplate {
         }});
     }
 
+    @RequestMapping(value = "/password/reset", method = RequestMethod.GET)
+    public ResponseEntity sendResetPasswordMail(@RequestParam String email) {
+        final UserBean user = userManager.getByIdentifierWithType(email, "email");
+        if (user == null) {
+            return generateBadRequest(ErrorCode.ErrorEmailNotExist);
+        }
+        if (!userManager.sendModifyPasswordMail(user.getUid())) {
+            return generateBadRequest(ErrorCode.ErrorSendResetPasswordMail);
+        }
+        return generateOK(new HashMap<String, Object>() {{
+            put("success", true);
+        }});
+    }
 }

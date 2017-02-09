@@ -17,9 +17,6 @@ import org.springframework.stereotype.Service;
 @RemoteProxy(name = "UserManager")
 public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
-    @Autowired
-    private MailComponent mailComponent;
-
     public String addUser(String name, String type, String identifier, String credential) {
         User user = new User();
         user.setName(name);
@@ -70,7 +67,9 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         String rootPath = this.getClass().getClassLoader().getResource("/").getPath().split("WEB-INF")[0];
         MengularDocument document = new MengularDocument(rootPath, 0, "template/modifyPasswordMail.html", null);
         document.setValue("username", user.getName());
-        document.setValue("link", "http://httper.mushare.cn/resetPassword.html?vid=" + vid);
+        document.setValue("httpProtocol", configComponent.getHttpProtocol());
+        document.setValue("domain", configComponent.getDomain());
+        document.setValue("vid", vid);
         return mailComponent.send(user.getIdentifier(), "Reset yout Httper password", document.getDocument());
     }
 
