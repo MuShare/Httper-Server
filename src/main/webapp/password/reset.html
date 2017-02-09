@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="浮尘追梦, fczm, Meng Li, Httper, REST API, iOS">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="HTTPER, a REST API test tool for iOS device.">
+    <title>Reset Password</title>
+    <link rel="Shortcut Icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="/static/css/semantic.min.css">
+    <script src="/dwr/engine.js"></script>
+    <script src="/dwr/interface/VerificationManager.js"></script>
+    <script src="/dwr/interface/UserManager.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/mengular.js"></script>
+    <script src="/static/js/reset.js"></script>
+</head>
+<body>
+<div class="ui hidden divider"></div>
+<div class="ui container">
+    <h2 class="ui header">
+        <img src="/static/images/logo.png" class="ui centered mini image rounded">
+        <div class="content">
+            <span>Httper</span>
+            <div class="sub header">Test your REST API anywhere</div>
+        </div>
+    </h2>
+    <h4 class="ui horizontal divider header"><i class="lock icon"></i> Reset Password </h4>
+    <div class="ui piled segment">
+        <div id="reset-message">
+            <h4 class="ui header">Dear @{name},</h4>
+            <p>We have received your request to reset your password of Httper at @{createAt}.</p>
+            <p>Here, you can input your new password and submit it. Then you can use this new password to sign in.</p>
+        </div>
+        <div class="ui divider"></div>
+        <div class="ui form">
+            <div class="field">
+                <label>New password</label>
+                <input id="reset-password" type="text" placeholder="Input your new password here.">
+            </div>
+            <button id="reset-submit" class="ui button basic fluid">Submit</button>
+        </div>
+    </div>
+</div>
+<div class="ui hidden divider"></div>
+<div id="foot">
+    <script>$("#foot").load("/foot.html")</script>
+</div>
+</body>
+</html>

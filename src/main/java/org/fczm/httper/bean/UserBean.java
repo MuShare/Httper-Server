@@ -61,12 +61,14 @@ public class UserBean {
         this.credential = credential;
     }
 
-    public UserBean(User user) {
+    public UserBean(User user, boolean safe) {
         this.uid = user.getUid();
         this.name = user.getName();
         this.avatar = user.getAvatar();
-        this.type = user.getType();
-        this.identifier = user.getIdentifier();
-        this.credential = user.getCredential();
+        if (!safe) {
+            this.type = user.getType();
+            this.identifier = user.getIdentifier();
+            this.credential = user.getCredential();
+        }
     }
 }

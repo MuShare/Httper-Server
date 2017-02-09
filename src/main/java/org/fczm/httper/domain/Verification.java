@@ -22,6 +22,9 @@ public class Verification implements Serializable {
     @Column(nullable = false)
     private Integer type;
 
+    @Column(nullable = false)
+    private Boolean active;
+
     @ManyToOne
     @JoinColumn(name = "uid", nullable = false)
     private User user;
@@ -48,6 +51,14 @@ public class Verification implements Serializable {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public User getUser() {

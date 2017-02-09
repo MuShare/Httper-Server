@@ -59,7 +59,7 @@ public class UserController extends ControllerTemplate {
         }});
     }
 
-    @RequestMapping(value = "/password/sendmail", method = RequestMethod.GET)
+    @RequestMapping(value = "/password/reset", method = RequestMethod.GET)
     public ResponseEntity sendResetPasswordMail(@RequestParam String email) {
         final UserBean user = userManager.getByIdentifierWithType(email, "email");
         if (user == null) {
@@ -71,15 +71,6 @@ public class UserController extends ControllerTemplate {
         return generateOK(new HashMap<String, Object>() {{
             put("success", true);
         }});
-    }
-
-    @RequestMapping(value = "/password/reset")
-    public void resetPassword(@RequestParam String vid, HttpServletResponse response) throws IOException {
-        if (!verificationManager.validate(vid)) {
-            response.sendRedirect("/index.html");
-        } else {
-            response.sendRedirect("/resetPassword.html");
-        }
     }
 
 }

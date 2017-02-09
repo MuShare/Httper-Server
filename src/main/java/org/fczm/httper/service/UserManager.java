@@ -2,6 +2,8 @@ package org.fczm.httper.service;
 
 import org.fczm.httper.bean.UserBean;
 
+import javax.servlet.http.HttpSession;
+
 public interface UserManager {
 
     /**
@@ -37,11 +39,11 @@ public interface UserManager {
     boolean sendModifyPasswordMail(String uid);
 
     /**
-     *
-     * @param code
+     * Reset password, auth by session.
      * @param password
+     * @param session
      * @return
      */
-    boolean modifyPassword(String code, String password);
+    boolean resetPassword(String password, HttpSession session);
 }
 

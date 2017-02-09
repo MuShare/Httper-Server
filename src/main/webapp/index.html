@@ -9,8 +9,8 @@
         <link rel="Shortcut Icon" href="static/images/favicon.ico">
         <link rel="stylesheet" href="static/css/semantic.min.css">
         <link rel="stylesheet" href="static/css/index.css">
-        <script src="static/js/jquery.min.js"></script>
-        <script src="static/js/semantic.min.js"></script>
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/semantic.min.js"></script>
     </head>
     <body>
         <div class="head">
@@ -65,21 +65,14 @@
                             <li>Keyboard accessory.</li>
                             <li>Data synchronization between devices.</li>
                         </ul>
-                        <img src="static/images/httper-qrcode.png" class="qrcode">
-                        <a href="https://itunes.apple.com/app/httper/id1166884043" target="_blank">
-                            <img src="static/images/appstore.png" class="appstore">
+                        <img src="/static/images/httper-qrcode.png" class="qrcode">
+                        <a href="https://itunes.apple.com/app/id1166884043" target="_blank">
+                            <img src="/static/images/appstore.png" class="appstore">
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ui black inverted vertical footer segment">
-            <div class="ui center aligned container">
-                <img src="static/images/logo.png" class="ui centered mini image">
-                <div class="ui horizontal inverted small divided link list">
-                    <a class="item" href="http://httper.mushare.cn" target="_blank">MuShare Group © 2015 - 2017. All Rights Reserved.</a>
-                </div>
-            </div>
-        </div>
+        <div id="foot"><script>$("#foot").load("/foot.html")</script></div>
     </body>
 </html>
