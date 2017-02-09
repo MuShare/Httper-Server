@@ -1,10 +1,7 @@
 package org.fczm.httper.controller.common;
 
 import org.fczm.httper.bean.UserBean;
-import org.fczm.httper.service.DeviceManager;
-import org.fczm.httper.service.ProjectManager;
-import org.fczm.httper.service.RequestManager;
-import org.fczm.httper.service.UserManager;
+import org.fczm.httper.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +27,9 @@ public class ControllerTemplate {
 
     @Autowired
     protected ProjectManager projectManager;
+
+    @Autowired
+    protected VerificationManager verificationManager;
 
     protected ResponseEntity generateOK(Map<String, Object> result) {
         return generateResponseEntity(result, HttpStatus.OK, null, null);

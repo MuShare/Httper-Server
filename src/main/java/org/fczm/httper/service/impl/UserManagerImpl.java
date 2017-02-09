@@ -70,7 +70,12 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         document.setValue("httpProtocol", configComponent.getHttpProtocol());
         document.setValue("domain", configComponent.getDomain());
         document.setValue("vid", vid);
-        return mailComponent.send(user.getIdentifier(), "Reset yout Httper password", document.getDocument());
+        boolean send =  mailComponent.send(user.getIdentifier(), "Reset yout Httper password", document.getDocument());
+        // If send mail failed, verficiation should be deleted.
+        if (!send) {
+            verificationDao.delete(verification);
+        }
+        return send;
     }
 
     @RemoteMethod

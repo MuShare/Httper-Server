@@ -41,6 +41,7 @@ public abstract class PageHibernateDaoSupport<T extends Serializable> extends Hi
 
     public void delete(T entity) {
         getHibernateTemplate().delete(entity);
+        getHibernateTemplate().flush();
     }
 
     public void delete(String id) {

@@ -19,5 +19,6 @@
     <bean id="configComponent" class="org.fczm.httper.component.ConfigComponent">
         <property name="httpProtocol" value="${config.httpProtocol}"/>
         <property name="domain" value="${config.domain}"/>
+        <property name="validity" value="${config.validity}"/>
     </bean>
 </beans>
