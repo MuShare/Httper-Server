@@ -29,6 +29,20 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return userDao.save(user);
     }
 
+    public boolean sendWelcomeMail(String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return false;
+        }
+        String rootPath = this.getClass().getClassLoader().getResource("/").getPath().split("WEB-INF")[0];
+        MengularDocument document = new MengularDocument(rootPath, 0, "mail/welcome.html", null);
+        document.setValue("username", user.getName());
+        document.setValue("httpProtocol", configComponent.getHttpProtocol());
+        document.setValue("domain", configComponent.getDomain());
+        document.setValue("email", user.getIdentifier());
+        return mailComponent.send(user.getIdentifier(), "Welcome to Httper cloud", document.getDocument());
+    }
+
     public UserBean getByIdentifierWithType(String identifier, String type) {
         User user = userDao.getByIdentifierWithType(identifier, type);
         if (user == null) {
@@ -79,7 +93,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
             return false;
         }
         String rootPath = this.getClass().getClassLoader().getResource("/").getPath().split("WEB-INF")[0];
-        MengularDocument document = new MengularDocument(rootPath, 0, "password/mail.html", null);
+        MengularDocument document = new MengularDocument(rootPath, 0, "mail/password.html", null);
         document.setValue("username", user.getName());
         document.setValue("httpProtocol", configComponent.getHttpProtocol());
         document.setValue("domain", configComponent.getDomain());

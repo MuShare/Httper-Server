@@ -24,6 +24,7 @@ public class UserController extends ControllerTemplate {
             return generateBadRequest(ErrorCode.ErrorEmailExist);
         }
         final String uid = userManager.addUser(name, "email", email, password);
+        userManager.sendWelcomeMail(uid);
         return generateOK(new HashMap<String, Object>() {{
             put("uid", uid);
         }});

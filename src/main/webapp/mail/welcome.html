@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Sign up success</title>
+    <link rel="Shortcut Icon" href="#{httpProtocol}://#{domain}/static/images/favicon.ico">
+</head>
+<body>
+<style>
+    body {
+        background: #fafafa;
+        font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    .ui.container {
+        width: auto !important;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    #app-name {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    #message-content {
+        width: 100%;
+        background: #FFF;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px 0 #D4D4D5, 0 0 0 1px #D4D4D5;
+    }
+
+    #message-content hr {
+        border-top: 0px solid rgba(34, 36, 38, .1);
+        margin: 0;
+    }
+
+    #message-content .content {
+        padding: 1em;
+    }
+
+    #message-content .content a {
+        background: 0 0;
+        color: #4183C4;
+        text-decoration: none;
+    }
+
+    #message-content .content h4 {
+        margin: 0;
+    }
+
+    #message-content .content h5 {
+        margin: 1em 0;
+        font-size: 15px;
+        font-weight: normal;
+    }
+
+    #message-content .content .button {
+        background-color: #2185D0;
+        color: #FFF;
+        cursor: pointer;
+        display: inline-block;
+        padding: .78571429em 1.5em;
+        font-weight: 700;
+        line-height: 1em;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    #footer {
+        margin: 2em 0;
+    }
+
+    #footer img {
+        width: 35px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+        border-radius: .3125em;
+    }
+
+    #footer .link {
+        margin: 1em 0;
+
+    }
+
+    #footer .link a {
+        color: rgba(0, 0, 0, .4);
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        font-size: 13px;
+    }
+
+    #download img {
+        width: 150px;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+<div class="ui container">
+    <h2 id="app-name">Httper</h2>
+    <div id="message-content" class="ui card">
+        <div class="content">
+            <h4>Welcome to Httper Cloud</h4>
+        </div>
+        <hr>
+        <div class="content">
+            <h5>Dear #{username},</h5>
+            <h5>Thank you for signing up Httper cloud! You can use your email #{email} to sign in.</h5>
+            <h5>With Httper cloud service, you can synchronize your request between multiple devices.</h5>
+            <h5>Here are some features of Httper:</h5>
+            <h5>1. Developers can submit a HTTP request with several headers, parameters and row request body by 9 different HTTP methods including GET, POST, HEAD, PUT, DELETE, CONNECT, OPTIONS, TRACE and PATCH. HTTP response can be shown as three styles including pretty, row and preview. Response status code and headers are also supported in Httper.</h5>
+            <h5>2. Supports to synchronize request history between multiple devices with your account signing in. Your request history can be synchronized from cloud in a new device if you sign in your account.</h5>
+            <h5>3. Some Internet tools are included in Httper:</h5>
+            <ul>
+                <li>Ping a domain or IP address.</li>
+                <li>Whois search.</li>
+                <li>Get device public IP info, WiFi info and cellular info.</li>
+            </ul>
+            <h5>We are developing project function which can manage your several requests in a project. The project can be shared with other people if you want.</h5>
+            <h5>If you any problem about this app, please submit issues on https://github.com/lm2343635/Httper/issues or send email to me(lm2343635@126.com). Httper is an open source software. If you like my app, please give me a star on Github: https://github.com/lm2343635/Httper</h5>
+            <h5>Sincerely yours,</h5>
+            <h5>MuShare Group</h5>
+            <div id="download">
+                <img src="#{httpProtocol}://#{domain}/static/images/qrcode.png">
+                <img src="#{httpProtocol}://#{domain}/static/images/appstore.png">
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <img src="#{httpProtocol}://#{domain}/static/images/logo.png">
+        <div class="link">
+            <a class="item" href="#{httpProtocol}://#{domain}" target="_blank">MuShare Group © 2015 - 2017. All Rights
+                Reserved.</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -17,6 +17,13 @@ public interface UserManager {
     String addUser(String name, String type, String identifier, String credential);
 
     /**
+     * Send a welcome email to user after signing up.
+     * @param uid
+     * @return
+     */
+    boolean sendWelcomeMail(String uid);
+
+    /**
      * Get user by identifier
      * @param identifier
      * @param type
