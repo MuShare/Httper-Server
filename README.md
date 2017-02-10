@@ -34,10 +34,23 @@ This is the REST API document of Httper Web service.
     - lan(String, Optional): device language
   - return:
     - token(String): login token
+    - name(String): user name
   - error:
     - ErrorEmailNotExist(1021): This email is not exsit.
     - ErrorPasswordWrong(1022): Password is wrong.
 
+(3)`api/user`
+
+  - Get user information.
+  - method: GET
+  - header:
+    - token(String): login token for authentication
+  - return:
+    - user(UserBean): login token
+  - error:
+    - ErrorEmailNotExist(1021): This email is not exsit.
+    - ErrorPasswordWrong(1022): Password is wrong.
+    - 
 2. Request
 ====
 (1)`api/request/push`

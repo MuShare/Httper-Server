@@ -65,6 +65,7 @@ public class UserController extends ControllerTemplate {
         if (userBean == null) {
             return generateBadRequest(ErrorCode.ErrorToken);
         }
+        userBean.safe();
         return generateOK(new HashMap<String, Object>() {{
             put("user", userBean);
         }});

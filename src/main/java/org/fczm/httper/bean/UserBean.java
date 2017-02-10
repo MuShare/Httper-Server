@@ -71,4 +71,10 @@ public class UserBean {
             this.credential = user.getCredential();
         }
     }
+
+    public void safe() {
+        this.type = null;
+        this.identifier = null;
+        this.credential = null;
+    }
 }
