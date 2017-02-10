@@ -32,6 +32,14 @@ public interface UserManager {
     UserBean authByToken(String token);
 
     /**
+     * Modify user name
+     * @param name
+     * @param uid
+     * @return
+     */
+    boolean modifyUserName(String name, String uid);
+
+    /**
      * Send a email with an url to user for modifying password.
      * @param uid
      * @return

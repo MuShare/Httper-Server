@@ -53,6 +53,16 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return new UserBean(user, false);
     }
 
+    public boolean modifyUserName(String name, String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return false;
+        }
+        user.setName(name);
+        userDao.update(user);
+        return true;
+    }
+
     @RemoteMethod
     public boolean sendModifyPasswordMail(String uid) {
         User user = userDao.get(uid);

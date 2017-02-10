@@ -24,7 +24,7 @@ public class UserController extends ControllerTemplate {
             return generateBadRequest(ErrorCode.ErrorEmailExist);
         }
         final String uid = userManager.addUser(name, "email", email, password);
-        return generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>() {{
             put("uid", uid);
         }});
     }
@@ -53,9 +53,32 @@ public class UserController extends ControllerTemplate {
             ip = request.getRemoteAddr();
         }
         final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, ip, user.getUid());
-        return generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>() {{
             put("token", token);
             put("name", user.getName());
+        }});
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity getUserInfo(HttpServletRequest request) {
+        final UserBean userBean = auth(request);
+        if (userBean == null) {
+            return generateBadRequest(ErrorCode.ErrorToken);
+        }
+        return generateOK(new HashMap<String, Object>() {{
+            put("user", userBean);
+        }});
+    }
+
+    @RequestMapping(value = "/name", method = RequestMethod.POST)
+    public ResponseEntity modifyName(@RequestParam String name, HttpServletRequest request) {
+        UserBean userBean = auth(request);
+        if (userBean == null) {
+            return generateBadRequest(ErrorCode.ErrorToken);
+        }
+        userManager.modifyUserName(name, userBean.getUid());
+        return generateOK(new HashMap<String, Object>(){{
+            put("success", true);
         }});
     }
 
