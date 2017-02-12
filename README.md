@@ -46,37 +46,41 @@ This is the REST API document of Httper Web service.
   - header:
     - token(String): login token for authentication
   - return:
-    - user(UserBean): login token
+    - user(UserBean): user information
   - error:
-    - ErrorEmailNotExist(1021): This email is not exsit.
-    - ErrorPasswordWrong(1022): Password is wrong.
-    - 
-2. Request
-====
-(1)`api/request/push`
+    - ErrorToken(901): Token is wrong.
 
-  - Push new request entity
+(4)`api/user/name`
+
+  - Modify user name.
   - method: POST
   - header:
     - token(String): login token for authentication
   - param:
-    - url(String)
-    - method(String)
-    - updateAt(long)
-    - headers(String): JSON string of headers
-    - parameters(String): JSON string of parameters
-    - bodyType(String)
-    - body(String)
+    - name(String): user name
   - return:
-    - revision(int): revision for this new request
-    - rid(String): physical id of request in server
+    - success(bool)
   - error:
     - ErrorToken(901): Token is wrong.
-    - ErrorAddRequest(2011): Add request failed because of an internel error.
 
-(2)`api/request/push/list`
+(5)`api/user/password/reset`
 
-  - Push existed request entities created before signing in.
+  - Send reset password email to user.
+  - method: GET
+  - param:
+    - email(String): user's email address
+  - return:
+    - success(bool)
+  - error:
+    - ErrorToken(901): Token is wrong.
+    - ErrorSendResetPasswordMail(1031): Send reset password email failed.
+
+2. Request
+====
+
+(1)`api/request/push`
+
+  - Push existed request entitiesn.
   - method: POST
   - header:
     - token(String): login token for authentication
@@ -87,7 +91,7 @@ This is the REST API document of Httper Web service.
   - error:
     - ErrorToken(901): Token is wrong.
     
-(3)`api/request/push`
+(2)`api/request/push`
 
   - Delete a request entity in server
   - method: DELETE
@@ -99,10 +103,9 @@ This is the REST API document of Httper Web service.
     - revision(int): revision for this delete request, client should update its local revision by this
   - error:
     - ErrorToken(901): Token is wrong.
-    - ErrorDeleteRequestNotFound(2021): Request not found. This may caused by commiting a wrong request.
-    - ErrorDeleteRequestNoPrivilege(2022): This user has not privilege to delete this request.
+    - ErrorDeleteRequest(2011): Request not found. This may caused by commiting a wrong request.
  
-(4)	`api/request/pull`
+(3)	`api/request/pull`
 
   - Pull updated request entity.
   - method: GET
@@ -114,5 +117,50 @@ This is the REST API document of Httper Web service.
     - updated(List\<RequestBean>): updated requests
     - deleted(List\<String>): rid list of deleted requests
     - revision: global request revision in server, return the revision from parameters if there is no updated requests from server.
+  - error:
+    - ErrorToken(901): Token is wrong.
+ 
+ 2. Project
+====
+
+(1)`api/project/push`
+
+  - Push existed project entities.
+  - method: POST
+  - header:
+    - token(String): login token for authentication
+  - param:
+    - projectsJSONArray(String): JSON array string of project entities
+  - return:
+    - results(List\<Map>): Push result.
+  - error:
+    - ErrorToken(901): Token is wrong.
+    
+(2)`api/project/push`
+
+  - Delete a project entity in server
+  - method: DELETE
+  - header:
+    - token(String): login token for authentication
+  - param:
+    - rid(String): physical id in server of this project entity
+  - return:
+    - revision(int): revision for this delete project, client should update its local revision by this
+  - error:
+    - ErrorToken(901): Token is wrong.
+    - ErrorDeleteProject(3011): Cannot delete this project..
+ 
+(3)	`api/project/pull`
+
+  - Pull updated project entity.
+  - method: GET
+  - header:
+    - token(String): login token for authentication
+  - param:
+    - revision(int): global project revision in client
+  - return
+    - updated(List\<ProjectBean>): updated projects
+    - deleted(List\<String>): pid list of deleted projects
+    - revision: global project revision in server, return the revision from parameters if there is no updated projects from server.
   - error:
     - ErrorToken(901): Token is wrong.
