@@ -45,6 +45,10 @@ public class Request implements Serializable {
     @JoinColumn(name = "uid", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "pid")
+    private Project project;
+
     public String getRid() {
         return rid;
     }
@@ -69,11 +73,11 @@ public class Request implements Serializable {
         this.method = method;
     }
 
-    public long getUpdateAt() {
+    public Long getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(long updateAt) {
+    public void setUpdateAt(Long updateAt) {
         this.updateAt = updateAt;
     }
 
@@ -109,18 +113,6 @@ public class Request implements Serializable {
         this.body = body;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setUpdateAt(Long updateAt) {
-        this.updateAt = updateAt;
-    }
-
     public Boolean getDeleted() {
         return deleted;
     }
@@ -135,6 +127,22 @@ public class Request implements Serializable {
 
     public void setRevision(Integer revision) {
         this.revision = revision;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
 }

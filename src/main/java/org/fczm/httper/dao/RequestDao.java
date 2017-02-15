@@ -1,6 +1,7 @@
 package org.fczm.httper.dao;
 
 import org.fczm.common.hibernate.support.CrudDao;
+import org.fczm.httper.domain.Project;
 import org.fczm.httper.domain.Request;
 import org.fczm.httper.domain.User;
 
@@ -22,5 +23,12 @@ public interface RequestDao extends CrudDao<Request> {
      * @return
      */
     List<Request> findUpdatedByRevision(Integer revision, User user);
+
+    /**
+     * Find requests by project.
+     * @param project
+     * @return
+     */
+    List<Request> findByProject(Project project);
 
 }

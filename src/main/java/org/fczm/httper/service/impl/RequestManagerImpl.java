@@ -3,6 +3,7 @@ package org.fczm.httper.service.impl;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.fczm.httper.bean.RequestBean;
+import org.fczm.httper.domain.Project;
 import org.fczm.httper.domain.Request;
 import org.fczm.httper.domain.User;
 import org.fczm.httper.service.RequestManager;
@@ -47,7 +48,11 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
     }
 
     public List<RequestBean> receiveClientRequests(String requestsJSONArray, String uid) {
-        List <RequestBean> requests = new ArrayList<RequestBean>();
+        User user = userDao.get(uid);
+        if (user == null) {
+            return null;
+        }
+        List<RequestBean> requests = new ArrayList<RequestBean>();
         JSONArray requestArray = JSONArray.fromObject(requestsJSONArray);
         for (int i = 0; i < requestArray.size(); i++) {
             JSONObject requestObject = requestArray.getJSONObject(i);
@@ -57,9 +62,48 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
             String parameters = requestObject.getString("parameters");
             String bodyType = requestObject.getString("bodyType");
             String body = requestObject.getString("body");
+            String rid = requestObject.getString("rid");
+            String pid = requestObject.getString("pid");
             long updateAt = requestObject.getLong("updateAt");
-            // Add new request entity.
-            requests.add(addNewRequest(url, method, updateAt, headers, parameters, bodyType, body, uid));
+            Request request = null;
+            // If rid is not empty, try to find this request in peristent store.
+            if (!rid.equals("")) {
+                request = requestDao.get(rid);
+                if (request != null) {
+                    // If this request is not belong to this user, that means other account has been used in this device.
+                    // Set request to null, so that we can create a new request object for this user.
+                    if (request.getUser() != user) {
+                        request = null;
+                    }
+                }
+            }
+            // If request is not null, we should update this request.
+            // Otherwise, we should created a new request entity for it.
+            if (request != null) {
+                request.setUrl(url);
+                request.setMethod(method);
+                request.setUpdateAt(updateAt);
+                request.setHeaders(headers);
+                request.setParameters(parameters);
+                request.setBodyType(bodyType);
+                request.setBody(body);
+                request.setRevision(requestDao.getMaxRevision(user) + 1);
+                // If pid is not empty, try to find a project and set this request's project
+                if (!pid.equals("")) {
+                    Project project = projectDao.get(pid);
+                    // If project is not null and this project belongs to the user, we can set it to request.
+                    if (project != null) {
+                        if (project.getUser() == user) {
+                            request.setProject(project);
+                        }
+                    }
+                }
+                requestDao.update(request);
+                requests.add(new RequestBean(request));
+            } else {
+                // Add new request entity.
+                requests.add(addNewRequest(url, method, updateAt, headers, parameters, bodyType, body, uid));
+            }
         }
         return requests;
     }
@@ -70,7 +114,7 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
             return null;
         }
         List<RequestBean> requests = new ArrayList<RequestBean>();
-        for (Request request: requestDao.findUpdatedByRevision(revision, user)) {
+        for (Request request : requestDao.findUpdatedByRevision(revision, user)) {
             requests.add(new RequestBean(request));
         }
         return requests;

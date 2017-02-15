@@ -2,6 +2,7 @@ package org.fczm.httper.dao.impl;
 
 import org.fczm.common.hibernate.support.PageHibernateDaoSupport;
 import org.fczm.httper.dao.RequestDao;
+import org.fczm.httper.domain.Project;
 import org.fczm.httper.domain.Request;
 import org.fczm.httper.domain.User;
 import org.hibernate.HibernateException;
@@ -38,6 +39,11 @@ public class RequestDaoHibernate extends PageHibernateDaoSupport<Request> implem
     public List<Request> findUpdatedByRevision(Integer revision, User user) {
         String hql = "from Request where user = ? and revision > ? order by revision";
         return (List<Request>) getHibernateTemplate().find(hql, user, revision);
+    }
+
+    public List<Request> findByProject(Project project) {
+        String hql = "from Request where project = ?";
+        return (List<Request>) getHibernateTemplate().find(hql, project);
     }
 
 }

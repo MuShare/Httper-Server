@@ -15,6 +15,7 @@ public class RequestBean {
     private boolean deleted;
     private int revision;
     private String uid;
+    private String pid;
 
     public String getRid() {
         return rid;
@@ -104,11 +105,20 @@ public class RequestBean {
         this.uid = uid;
     }
 
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
     public RequestBean(Request request) {
         this.rid = request.getRid();
         this.deleted = request.getDeleted();
         this.revision = request.getRevision();
         this.uid = request.getUser().getUid();
+        this.pid = (request.getProject() == null) ? null : request.getProject().getPid();
         if (!request.getDeleted()) {
             this.url = request.getUrl();
             this.method = request.getMethod();

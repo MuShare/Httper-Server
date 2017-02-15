@@ -4,6 +4,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.fczm.httper.bean.ProjectBean;
 import org.fczm.httper.domain.Project;
+import org.fczm.httper.domain.Request;
 import org.fczm.httper.domain.User;
 import org.fczm.httper.service.ProjectManager;
 import org.fczm.httper.service.common.ManagerTemplate;
@@ -77,6 +78,12 @@ public class ProjectManagerImpl extends ManagerTemplate implements ProjectManage
         if (project.getUser() != user) {
             return -1;
         }
+        // Set requests' project to null
+        for (Request request : requestDao.findByProject(project)) {
+            request.setProject(null);
+            requestDao.update(request);
+        }
+        // Set attributes to null.
         project.setPname(null);
         project.setPrivilege(null);
         project.setIntroduction(null);
