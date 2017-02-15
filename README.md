@@ -120,7 +120,7 @@ This is the REST API document of Httper Web service.
   - error:
     - ErrorToken(901): Token is wrong.
  
- 2. Project
+3. Project
 ====
 
 (1)`api/project/push`
