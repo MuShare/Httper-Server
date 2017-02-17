@@ -114,6 +114,17 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>httper-server</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8080/</url>
+                    <server>TomcatServer</server>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>httper</finalName>
     </build>
 </project>
