@@ -47,9 +47,30 @@ public class ProjectManagerImpl extends ManagerTemplate implements ProjectManage
             String pname = projectObject.getString("pname");
             String privilege = projectObject.getString("privilege");
             String introduction = projectObject.getString("introduction");
+            String pid = projectObject.getString("pid");
             long updateAt = projectObject.getLong("updateAt");
-            // Add new project entity.
-            projects.add(addProject(pname, privilege, introduction, updateAt, uid));
+            Project project = null;
+            if (!pid.equals("")) {
+                project = projectDao.get(pid);
+                if (project != null) {
+                    if (project.getUser() != user) {
+                        project = null;
+                    }
+                }
+            }
+            if (project != null) {
+                project.setPname(pname);
+                project.setPrivilege(privilege);
+                project.setIntroduction(introduction);
+                // Update revision
+                project.setRevision(projectDao.getMaxRevision(user) + 1);
+                projectDao.update(project);
+                projects.add(new ProjectBean(project));
+            } else {
+                // Add new project entity.
+                projects.add(addProject(pname, privilege, introduction, updateAt, uid));
+            }
+
         }
         return projects;
     }
