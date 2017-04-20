@@ -24,10 +24,11 @@ public interface RequestManager {
      * @param bodyType
      * @param body
      * @param uid
+     * @param pid
      * @return
      */
     RequestBean addNewRequest(String url, String method, long updateAt, String headers, String parameters,
-                              String bodyType, String body, String uid);
+                              String bodyType, String body, String uid, String pid);
 
     /**
      * Receive multiple request entities from client by JSON string of request array

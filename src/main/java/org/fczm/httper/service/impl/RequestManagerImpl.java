@@ -25,9 +25,16 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
     }
 
     public RequestBean addNewRequest(String url, String method, long updateAt, String headers,
-                                     String parameters, String bodyType, String body, String uid) {
+                                     String parameters, String bodyType, String body, String uid, String pid) {
         User user = userDao.get(uid);
         if (user == null) {
+            return null;
+        }
+        Project project = projectDao.get(pid);
+        if (project == null) {
+            return null;
+        }
+        if (project.getUser() != user) {
             return null;
         }
         Request request = new Request();
@@ -41,6 +48,7 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
         request.setRevision(requestDao.getMaxRevision(user) + 1);
         request.setDeleted(false);
         request.setUser(user);
+        request.setProject(project);
         if (requestDao.save(request) == null) {
             return null;
         }
@@ -64,6 +72,7 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
             String body = requestObject.getString("body");
             String rid = requestObject.getString("rid");
             String pid = requestObject.getString("pid");
+
             long updateAt = requestObject.getLong("updateAt");
             Request request = null;
             // If rid is not empty, try to find this request in peristent store.
@@ -77,6 +86,7 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
                     }
                 }
             }
+            Project project = projectDao.get(pid);
             // If request is not null, we should update this request.
             // Otherwise, we should created a new request entity for it.
             if (request != null) {
@@ -90,19 +100,20 @@ public class RequestManagerImpl extends ManagerTemplate implements RequestManage
                 request.setRevision(requestDao.getMaxRevision(user) + 1);
                 // If pid is not empty, try to find a project and set this request's project
                 if (!pid.equals("")) {
-                    Project project = projectDao.get(pid);
+
                     // If project is not null and this project belongs to the user, we can set it to request.
                     if (project != null) {
                         if (project.getUser() == user) {
-                            request.setProject(project);
+
                         }
                     }
                 }
+                request.setProject(project);
                 requestDao.update(request);
                 requests.add(new RequestBean(request));
             } else {
                 // Add new request entity.
-                requests.add(addNewRequest(url, method, updateAt, headers, parameters, bodyType, body, uid));
+                requests.add(addNewRequest(url, method, updateAt, headers, parameters, bodyType, body, uid, pid));
             }
         }
         return requests;
