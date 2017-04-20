@@ -7,7 +7,7 @@ Download this app from App Store: https://itunes.apple.com/app/httper/id11668840
 This is the REST API document of Httper Web service.
 
 1. User
-====
+
 (1)`api/user/register`
    
   - Register a user by email.
@@ -76,7 +76,6 @@ This is the REST API document of Httper Web service.
     - ErrorSendResetPasswordMail(1031): Send reset password email failed.
 
 2. Request
-====
 
 (1)`api/request/push`
 
@@ -121,7 +120,6 @@ This is the REST API document of Httper Web service.
     - ErrorToken(901): Token is wrong.
  
 3. Project
-====
 
 (1)`api/project/push`
 
