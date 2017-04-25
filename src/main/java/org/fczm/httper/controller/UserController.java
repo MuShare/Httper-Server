@@ -34,29 +34,18 @@ public class UserController extends ControllerTemplate {
     public ResponseEntity login(@RequestParam String email, @RequestParam String password,
                                 @RequestParam String deviceIdentifier, String deviceToken, String os, String lan,
                                 HttpServletRequest request) {
-        final UserBean user = userManager.getByIdentifierWithType(email, "email");
-        if (user == null) {
+        final UserBean userBean = userManager.getByIdentifierWithType(email, "email");
+        if (userBean == null) {
             return generateBadRequest(ErrorCode.ErrorEmailNotExist);
         }
-        if (!user.getCredential().equals(password)) {
+        if (!userBean.getCredential().equals(password)) {
             return generateBadRequest(ErrorCode.ErrorPasswordWrong);
         }
-
         //Login success, register device.
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, ip, user.getUid());
+        final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, getRemoteIP(request), userBean.getUid());
         return generateOK(new HashMap<String, Object>() {{
             put("token", token);
-            put("name", user.getName());
+            put("name", userBean.getName());
         }});
     }
 
@@ -98,4 +87,32 @@ public class UserController extends ControllerTemplate {
         }});
     }
 
+    @RequestMapping(value = "fblogin", method = RequestMethod.POST)
+    public ResponseEntity fblogin(@RequestParam String accessToken, @RequestParam String deviceIdentifier,
+                                  String deviceToken, String os, String lan, HttpServletRequest request) {
+        final UserBean userBean = userManager.getByFacebookAccessToken(accessToken);
+        if (userBean == null) {
+            return generateBadRequest(ErrorCode.ErrorFacebookAccessTokenInvalid);
+        }
+        //Login success, register device.
+        final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, getRemoteIP(request), userBean.getUid());
+        return generateOK(new HashMap<String, Object>() {{
+            put("token", token);
+            put("name", userBean.getName());
+        }});
+    }
+
+    private static String getRemoteIP(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
+    }
 }

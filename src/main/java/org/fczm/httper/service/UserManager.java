@@ -6,6 +6,9 @@ import javax.servlet.http.HttpSession;
 
 public interface UserManager {
 
+    public static final String UserTypeEmail = "email";
+    public static final String UserTypeFacebook = "facebook";
+
     /**
      * Add a user
      * @param name
@@ -39,6 +42,13 @@ public interface UserManager {
     UserBean authByToken(String token);
 
     /**
+     * Get a user by facebook's access token. If this user is not existed, create a new one in database.
+     * @param token
+     * @return
+     */
+    UserBean getByFacebookAccessToken(String token);
+
+    /**
      * Modify user name
      * @param name
      * @param uid
@@ -60,5 +70,6 @@ public interface UserManager {
      * @return
      */
     boolean resetPassword(String password, HttpSession session);
+
 }
 

@@ -1,7 +1,12 @@
 package org.fczm.httper.service.impl;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
+import org.fczm.common.util.Debug;
 import org.fczm.common.util.MengularDocument;
 import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.bean.VerificationBean;
@@ -11,6 +16,8 @@ import org.fczm.httper.domain.Verification;
 import org.fczm.httper.service.UserManager;
 import org.fczm.httper.service.VerificationManager;
 import org.fczm.httper.service.common.ManagerTemplate;
+import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -60,9 +67,51 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
     }
 
     public UserBean getByEmail(String email) {
-        User user = userDao.getByIdentifierWithType(email, "email");
+        User user = userDao.getByIdentifierWithType(email, UserTypeEmail);
         if (user == null) {
             return null;
+        }
+        return new UserBean(user, false);
+    }
+
+
+    public UserBean getByFacebookAccessToken(String token) {
+        HttpResponse<JsonNode> response = null;
+        try {
+            response = Unirest.get("https://graph.facebook.com/me")
+                    .header("accept", "application/json")
+                    .queryString("access_token", token)
+                    .asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        if (response == null) {
+            Debug.error("Cannot get user info from facebook, response is null.");
+            return null;
+        }
+        if (response.getStatus() != HttpStatus.OK.value()) {
+            Debug.error("Cannot get user info from facebook, bad request.");
+            return null;
+        }
+        JSONObject userInfo = response.getBody().getObject();
+        if (userInfo.has("error")) {
+            Debug.error("Malformed access token.");
+            return null;
+        }
+        String userId = userInfo.getString("id");
+        String name = userInfo.getString("name");
+        User user = userDao.getByIdentifierWithType(userId, UserTypeFacebook);
+        if (user == null) {
+            user = new User();
+            user.setName(name);
+            user.setType(UserTypeFacebook);
+            user.setCredential(token);
+            user.setIdentifier(userId);
+            userDao.save(user);
+        } else {
+            user.setName(name);
+            user.setCredential(token);
+            userDao.update(user);
         }
         return new UserBean(user, false);
     }
@@ -136,4 +185,5 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         verificationDao.update(verification);
         return true;
     }
+
 }

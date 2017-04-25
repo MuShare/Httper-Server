@@ -7,6 +7,7 @@ public enum ErrorCode {
     ErrorEmailNotExist(1021, "This email is not exsit."),
     ErrorPasswordWrong(1022, "Password is wrong."),
     ErrorSendResetPasswordMail(1031, "Send reset password email failed."),
+    ErrorFacebookAccessTokenInvalid(1041, "Facebook access token is invalid"),
 
     ErrorDeleteRequest(2011, "Cannot delete this request. This may caused by commiting a wrong request, or this user has not privilege to delete this request."),
     ErrorDeleteProject(3011, "Cannot delete this project.");
