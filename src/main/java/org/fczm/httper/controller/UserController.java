@@ -49,6 +49,36 @@ public class UserController extends ControllerTemplate {
         }});
     }
 
+    @RequestMapping(value = "/password/reset", method = RequestMethod.GET)
+    public ResponseEntity sendResetPasswordMail(@RequestParam String email) {
+        final UserBean user = userManager.getByIdentifierWithType(email, "email");
+        if (user == null) {
+            return generateBadRequest(ErrorCode.ErrorEmailNotExist);
+        }
+        if (!userManager.sendModifyPasswordMail(user.getUid())) {
+            return generateBadRequest(ErrorCode.ErrorSendResetPasswordMail);
+        }
+        return generateOK(new HashMap<String, Object>() {{
+            put("success", true);
+        }});
+    }
+
+
+    @RequestMapping(value = "/fblogin", method = RequestMethod.POST)
+    public ResponseEntity fblogin(@RequestParam String accessToken, @RequestParam String deviceIdentifier,
+                                  String deviceToken, String os, String lan, HttpServletRequest request) {
+        final UserBean userBean = userManager.getByFacebookAccessToken(accessToken);
+        if (userBean == null) {
+            return generateBadRequest(ErrorCode.ErrorFacebookAccessTokenInvalid);
+        }
+        //Login success, register device.
+        final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, getRemoteIP(request), userBean.getUid());
+        return generateOK(new HashMap<String, Object>() {{
+            put("token", token);
+            put("name", userBean.getName());
+        }});
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity getUserInfo(HttpServletRequest request) {
         final UserBean userBean = auth(request);
@@ -70,35 +100,6 @@ public class UserController extends ControllerTemplate {
         userManager.modifyUserName(name, userBean.getUid());
         return generateOK(new HashMap<String, Object>(){{
             put("success", true);
-        }});
-    }
-
-    @RequestMapping(value = "/password/reset", method = RequestMethod.GET)
-    public ResponseEntity sendResetPasswordMail(@RequestParam String email) {
-        final UserBean user = userManager.getByIdentifierWithType(email, "email");
-        if (user == null) {
-            return generateBadRequest(ErrorCode.ErrorEmailNotExist);
-        }
-        if (!userManager.sendModifyPasswordMail(user.getUid())) {
-            return generateBadRequest(ErrorCode.ErrorSendResetPasswordMail);
-        }
-        return generateOK(new HashMap<String, Object>() {{
-            put("success", true);
-        }});
-    }
-
-    @RequestMapping(value = "fblogin", method = RequestMethod.POST)
-    public ResponseEntity fblogin(@RequestParam String accessToken, @RequestParam String deviceIdentifier,
-                                  String deviceToken, String os, String lan, HttpServletRequest request) {
-        final UserBean userBean = userManager.getByFacebookAccessToken(accessToken);
-        if (userBean == null) {
-            return generateBadRequest(ErrorCode.ErrorFacebookAccessTokenInvalid);
-        }
-        //Login success, register device.
-        final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, getRemoteIP(request), userBean.getUid());
-        return generateOK(new HashMap<String, Object>() {{
-            put("token", token);
-            put("name", userBean.getName());
         }});
     }
 

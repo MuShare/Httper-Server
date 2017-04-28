@@ -39,7 +39,35 @@ This is the REST API document of Httper Web service.
     - ErrorEmailNotExist(1021): This email is not exsit.
     - ErrorPasswordWrong(1022): Password is wrong.
 
-(3)`api/user`
+(3)`api/user/password/reset`
+
+  - Send reset password email to user.
+  - method: GET
+  - param:
+    - email(String): user's email address
+  - return:
+    - success(bool)
+  - error:
+    - ErrorToken(901): Token is wrong.
+    - ErrorSendResetPasswordMail(1031): Send reset password email failed.
+
+(4)`api/user/fblogin`
+
+  - Login by facebook OAuth.
+  - method: POST
+  - param:
+    - accessToken(String): accessToken.authenticationToken from facebook OAuth
+    - deviceIdentifier(String): UUID of a device
+    - deviceToken(String, Optional): device token from APNs server
+    - os(String, Optional): name and version of operating system 
+    - lan(String, Optional): device language
+  - return:
+    - token(String): login token
+    - name(String): user name from facebook
+  - error:
+    - ErrorFacebookAccessTokenInvalid(901): accessToken.authenticationToken is wrong.
+
+(5)`api/user`
 
   - Get user information.
   - method: GET
@@ -50,7 +78,7 @@ This is the REST API document of Httper Web service.
   - error:
     - ErrorToken(901): Token is wrong.
 
-(4)`api/user/name`
+(6)`api/user/name`
 
   - Modify user name.
   - method: POST
@@ -62,18 +90,6 @@ This is the REST API document of Httper Web service.
     - success(bool)
   - error:
     - ErrorToken(901): Token is wrong.
-
-(5)`api/user/password/reset`
-
-  - Send reset password email to user.
-  - method: GET
-  - param:
-    - email(String): user's email address
-  - return:
-    - success(bool)
-  - error:
-    - ErrorToken(901): Token is wrong.
-    - ErrorSendResetPasswordMail(1031): Send reset password email failed.
 
 ### 2. Request
 
