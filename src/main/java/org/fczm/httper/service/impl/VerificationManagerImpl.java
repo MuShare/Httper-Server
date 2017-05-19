@@ -20,7 +20,7 @@ public class VerificationManagerImpl extends ManagerTemplate implements Verifica
         if (verification == null) {
             return null;
         }
-        if (System.currentTimeMillis() / 1000L - verification.getCreateAt() > configComponent.getValidity()) {
+        if (System.currentTimeMillis() / 1000L - verification.getCreateAt() > configComponent.global.validity) {
             return null;
         }
         return new VerificationBean(verification);

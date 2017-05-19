@@ -1,0 +1,17 @@
+{
+  "global": {
+    "languages": "en",
+    "httpProtocol": "http",
+    "domain": "localhost:8080",
+    "validity": 600
+  },
+  "mail": {
+    "sender": "test@mushare.cn",
+    "smtp": "smtp.ym.163.com",
+    "username": "test@mushare.cn",
+    "password": "test_account"
+  },
+  "facebook": {
+    "appId": "636888773166919"
+  }
+}
