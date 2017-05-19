@@ -43,9 +43,10 @@ public class UserController extends ControllerTemplate {
         }
         //Login success, register device.
         final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, getRemoteIP(request), userBean.getUid());
+        userBean.safe();
         return generateOK(new HashMap<String, Object>() {{
             put("token", token);
-            put("name", userBean.getName());
+            put("user", userBean);
         }});
     }
 
@@ -73,9 +74,10 @@ public class UserController extends ControllerTemplate {
         }
         //Login success, register device.
         final String token = deviceManager.registerDevice(deviceIdentifier, os, lan, deviceToken, getRemoteIP(request), userBean.getUid());
+        userBean.safe();
         return generateOK(new HashMap<String, Object>() {{
             put("token", token);
-            put("name", userBean.getName());
+            put("user", userBean);
         }});
     }
 

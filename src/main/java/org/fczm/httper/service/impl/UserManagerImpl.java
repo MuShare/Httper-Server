@@ -37,6 +37,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         user.setType(type);
         user.setCredential(credential);
         user.setIdentifier(identifier);
+        user.setAvatar(configComponent.DefaultAvatar);
         return userDao.save(user);
     }
 
