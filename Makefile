@@ -12,6 +12,6 @@ docker-push:
 docker-push-staging:
 	docker push mushare/httper:staging
 
-ci-build-production: test docker-build docker-push
+ci-build-production: docker-build docker-push
 
-ci-build-staging: test docker-build-staging docker-push-staging
+ci-build-staging: docker-build-staging docker-push-staging
