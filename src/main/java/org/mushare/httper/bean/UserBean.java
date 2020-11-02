@@ -61,10 +61,10 @@ public class UserBean {
         this.credential = credential;
     }
 
-    public UserBean(User user, boolean safe) {
+    public UserBean(User user, String baseUrl, boolean safe) {
         this.uid = user.getUid();
         this.name = user.getName();
-        this.avatar = user.getAvatar();
+        this.avatar = baseUrl + user.getAvatar();
         if (!safe) {
             this.type = user.getType();
             this.identifier = user.getIdentifier();

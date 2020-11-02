@@ -52,11 +52,11 @@ public class VerificationBean {
         this.user = user;
     }
 
-    public VerificationBean(Verification verification) {
+    public VerificationBean(Verification verification, String baseUrl) {
         this.vid = verification.getVid();
         this.createAt = verification.getCreateAt();
         this.type = verification.getType();
         this.active = verification.getActive();
-        this.user = new UserBean(verification.getUser(), true);
+        this.user = new UserBean(verification.getUser(), baseUrl, true);
     }
 }

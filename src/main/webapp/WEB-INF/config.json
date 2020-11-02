@@ -15,7 +15,9 @@
     "appId": "636888773166919"
   },
   "aliyun": {
+    "baseUrl": "",
     "endpoint": "",
+    "bucket": "",
     "accessKeyId": "",
     "accessKeySecret": ""
   }
