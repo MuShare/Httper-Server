@@ -215,20 +215,21 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
     private String downloadAvatarFromFacebook(String token) {
         HttpResponse<InputStream> response = null;
+        String avatar = configComponent.AvatarPath + File.separator + UUID.randomUUID().toString() + ".jpg";
         try {
             response = Unirest.get("https://graph.facebook.com/me/picture")
                     .header("accept", "image/jpeg")
                     .queryString("width", 480)
                     .queryString("access_token", token)
                     .asBinary();
-            String avatar = configComponent.AvatarPath + File.separator + UUID.randomUUID().toString() + ".jpg";
-            File file = new File(configComponent.rootPath +  avatar);
+            File file = new File(configComponent.getCachePath() + avatar);
             FileUtils.copyInputStreamToFile(response.getBody(), file);
-            return avatar;
         } catch (Exception e) {
             e.printStackTrace();
             return configComponent.DefaultAvatar;
         }
+        aliyunOSSComponent.upload(avatar, "image/jpeg");
+        return avatar;
     }
 
 }

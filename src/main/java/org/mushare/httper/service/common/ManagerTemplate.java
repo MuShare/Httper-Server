@@ -1,5 +1,6 @@
 package org.mushare.httper.service.common;
 
+import org.mushare.httper.component.AliyunOSSComponent;
 import org.mushare.httper.component.ConfigComponent;
 import org.mushare.httper.component.MailComponent;
 import org.mushare.httper.dao.*;
@@ -27,6 +28,9 @@ public class ManagerTemplate {
 
     @Autowired
     protected ConfigComponent configComponent;
+
+    @Autowired
+    protected AliyunOSSComponent aliyunOSSComponent;
 
     public UserDao getUserDao() {
         return userDao;

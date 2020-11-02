@@ -13,13 +13,10 @@ import javax.servlet.ServletContext;
 @Component
 public class ConfigComponent {
 
-    @Autowired
-    private ServletContext context;
-
     public static final String ConfigPath = "/WEB-INF/config.json";
 
     public String DefaultAvatar = "/static/images/avatar.png";
-    public String AvatarPath = "/files/avatar";
+    public String AvatarPath = "/avatar";
 
     public String rootPath;
     public JsonTool configTool = null;
@@ -27,10 +24,6 @@ public class ConfigComponent {
     public Global global;
     public Facebook facebook;
     public Aliyun aliyun;
-
-    public String getCachePath() {
-        return context.getRealPath("/") + "/cache";
-    };
 
     public ConfigComponent() {
         rootPath = this.getClass().getClassLoader().getResource("/").getPath().split("WEB-INF")[0];
@@ -45,5 +38,9 @@ public class ConfigComponent {
         facebook = new Facebook(configTool.getJSONObject("facebook"));
         aliyun = new Aliyun(configTool.getJSONObject("aliyun"));
     }
+
+    public String getCachePath() {
+        return rootPath + "/cache";
+    };
 
 }
