@@ -13,5 +13,10 @@
   },
   "facebook": {
     "appId": "636888773166919"
+  },
+  "aliyun": {
+    "endpoint": "",
+    "accessKeyId": "",
+    "accessKeySecret": ""
   }
 }

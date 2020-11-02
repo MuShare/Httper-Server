@@ -4,7 +4,6 @@ import org.fczm.httper.bean.RequestBean;
 import org.fczm.httper.bean.UserBean;
 import org.fczm.httper.controller.common.ControllerTemplate;
 import org.fczm.httper.controller.common.ErrorCode;
-import org.fczm.httper.service.RequestManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

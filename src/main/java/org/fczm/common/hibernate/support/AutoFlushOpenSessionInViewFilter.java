@@ -1,7 +1,6 @@
 package org.fczm.common.hibernate.support;
 
 import org.hibernate.FlushMode;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessResourceFailureException;

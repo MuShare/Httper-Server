@@ -3,7 +3,6 @@ package org.fczm.httper.service;
 import org.fczm.httper.bean.RequestBean;
 
 import java.util.List;
-import java.util.Map;
 
 public interface RequestManager {
 
