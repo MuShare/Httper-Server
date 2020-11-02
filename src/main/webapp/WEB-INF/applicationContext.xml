@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:property-placeholder location="WEB-INF/hibernate.properties"/>
-    <context:component-scan base-package="org.fczm.httper"/>
+    <context:component-scan base-package="org.mushare.httper"/>
     <import resource="dwr.xml"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -27,7 +27,7 @@
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="org.fczm.httper.domain"/>
+        <property name="packagesToScan" value="org.mushare.httper.domain"/>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
