@@ -215,7 +215,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
     private String downloadAvatarFromFacebook(String token) {
         HttpResponse<InputStream> response = null;
-        String avatar = configComponent.AvatarPath + File.separator + UUID.randomUUID().toString() + ".jpg";
+        String avatar = "avatar/" + UUID.randomUUID().toString() + ".jpg";
         try {
             response = Unirest.get("https://graph.facebook.com/me/picture")
                     .header("accept", "image/jpeg")

@@ -16,7 +16,6 @@ public class ConfigComponent {
     public static final String ConfigPath = "/WEB-INF/config.json";
 
     public String DefaultAvatar = "/static/images/avatar.png";
-    public String AvatarPath = "/avatar";
 
     public String rootPath;
     public JsonTool configTool = null;
@@ -40,7 +39,7 @@ public class ConfigComponent {
     }
 
     public String getCachePath() {
-        return rootPath + "/cache";
+        return rootPath + "/cache/";
     };
 
 }
