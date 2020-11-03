@@ -3,7 +3,7 @@ name: docker_publish_production
 on:
   create:
     tags:
-      - *
+      - '*'
 
 jobs:
   build:
