@@ -1,24 +1,24 @@
 {
   "global": {
-    "languages": "en",
-    "httpProtocol": "http",
-    "domain": "localhost:8080",
+    "languages": "global_languages",
+    "httpProtocol": "global_http_protocol",
+    "domain": "global_domain",
     "validity": 600
   },
   "mail": {
-    "sender": "test@mushare.cn",
-    "smtp": "smtp.ym.163.com",
-    "username": "test@mushare.cn",
-    "password": "test_account"
+    "sender": "mail_sender_address",
+    "smtp": "mail_smtp_server",
+    "username": "mail_username",
+    "password": "mail_password"
   },
   "facebook": {
-    "appId": "636888773166919"
+    "appId": "facebook_app_id"
   },
   "aliyun": {
-    "baseUrl": "",
-    "endpoint": "",
-    "bucket": "",
-    "accessKeyId": "",
-    "accessKeySecret": ""
+    "baseUrl": "aliyun_base_url",
+    "endpoint": "aliyun_endpoint",
+    "bucket": "aliyun_bucket",
+    "accessKeyId": "aliyun_access_key_id",
+    "accessKeySecret": "aliyun_access_key_secret"
   }
 }
