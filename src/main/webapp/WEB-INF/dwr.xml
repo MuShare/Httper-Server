@@ -10,7 +10,7 @@
 	<dwr:annotation-config/>
 	<dwr:controller id="dwrController" debug="true"/>
 	<dwr:url-mapping/>
-	<dwr:annotation-scan base-package="org.fczm.httper" scanDataTransferObject="true" scanRemoteProxy="true"/>
+	<dwr:annotation-scan base-package="org.mushare.httper" scanDataTransferObject="true" scanRemoteProxy="true"/>
 	<dwr:configuration/>
 
 </beans>
