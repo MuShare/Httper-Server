@@ -59,7 +59,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         if (user == null) {
             return null;
         }
-        return new UserBean(user, configComponent.aliyun.baseUrl, false);
+        return new UserBean(user, configComponent.aliyun.getBaseUrl(), false);
     }
 
     public UserBean authByToken(String token) {
@@ -67,7 +67,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         if (device == null) {
             return null;
         }
-        return new UserBean(device.getUser(), configComponent.aliyun.baseUrl, false);
+        return new UserBean(device.getUser(), configComponent.aliyun.getBaseUrl(), false);
     }
 
     public UserBean getByEmail(String email) {
@@ -75,7 +75,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         if (user == null) {
             return null;
         }
-        return new UserBean(user, configComponent.aliyun.baseUrl, false);
+        return new UserBean(user, configComponent.aliyun.getBaseUrl(), false);
     }
 
 
@@ -122,7 +122,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
             user.setCredential(token);
             userDao.update(user);
         }
-        return new UserBean(user, configComponent.aliyun.baseUrl, false);
+        return new UserBean(user, configComponent.aliyun.getBaseUrl(), false);
     }
 
     public boolean modifyUserName(String name, String uid) {

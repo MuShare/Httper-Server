@@ -22,7 +22,7 @@ public class VerificationManagerImpl extends ManagerTemplate implements Verifica
         if (System.currentTimeMillis() / 1000L - verification.getCreateAt() > configComponent.global.validity) {
             return null;
         }
-        return new VerificationBean(verification, configComponent.aliyun.baseUrl);
+        return new VerificationBean(verification, configComponent.aliyun.getBaseUrl());
     }
 
     @RemoteMethod
